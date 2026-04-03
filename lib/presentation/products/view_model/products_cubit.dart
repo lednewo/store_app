@@ -15,7 +15,9 @@ class ProductsCubit extends Cubit<ProductsState> {
   bool hasMore = false;
   int totalPages = 0;
   int currentPage = 0;
-  String? currentSearch;
+  String? currentName;
+  String? currentModel;
+  String? currentBrand;
   double? currentMinPrice;
   double? currentMaxPrice;
   StatusEnum? currentStatus;
@@ -27,16 +29,18 @@ class ProductsCubit extends Cubit<ProductsState> {
     emit(const ProductsLoading());
 
     final result = await _repository.getProducts(dto);
+    currentPage = dto.page;
+    currentName = dto.name;
+    currentModel = dto.model;
+    currentBrand = dto.brand;
+    currentMinPrice = dto.minPrice;
+    currentMaxPrice = dto.maxPrice;
+    currentStatus = dto.status;
 
     result.when(
       ok: (success) {
         hasMore =
             success.data.length == dto.size && currentPage < totalPages - 1;
-        currentPage = dto.page;
-        currentSearch = dto.name;
-        currentMinPrice = dto.minPrice;
-        currentMaxPrice = dto.maxPrice;
-        currentStatus = dto.status;
         totalPages = success.totalPages;
 
         emit(ProductsSuccess(success));

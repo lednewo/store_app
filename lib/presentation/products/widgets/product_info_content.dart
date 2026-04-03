@@ -4,7 +4,6 @@ import 'package:base_app/domain/entities/product_entity.dart';
 import 'package:base_app/domain/enum/status_enum.dart';
 import 'package:base_app/l10n/l10n.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class ProductInfoContent extends StatelessWidget {
   const ProductInfoContent({
@@ -62,8 +61,6 @@ class ProductInfoContent extends StatelessWidget {
   }
 }
 
-// ─── Header ───────────────────────────────────────────────────────────────────
-
 class _ProductHeader extends StatelessWidget {
   const _ProductHeader({required this.product});
 
@@ -103,8 +100,7 @@ class _ProductHeader extends StatelessWidget {
         const SizedBox(height: 12),
         Text(
           'R\$ ${product.price.toStringAsFixed(2).replaceAll('.', ',')}',
-          style: textTheme.headlineMedium?.copyWith(
-            color: colorScheme.primary,
+          style: textTheme.headlineSmall?.copyWith(
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -112,8 +108,6 @@ class _ProductHeader extends StatelessWidget {
     );
   }
 }
-
-// ─── Status badge ─────────────────────────────────────────────────────────────
 
 class _StatusBadge extends StatelessWidget {
   const _StatusBadge({required this.status});
@@ -151,8 +145,6 @@ class _StatusBadge extends StatelessWidget {
     );
   }
 }
-
-// ─── Info section ─────────────────────────────────────────────────────────────
 
 class _InfoSection extends StatelessWidget {
   const _InfoSection({required this.product, required this.l10n});
@@ -224,8 +216,6 @@ class _InfoRow extends StatelessWidget {
   }
 }
 
-// ─── Size selector ────────────────────────────────────────────────────────────
-
 class _SizeSelector extends StatefulWidget {
   const _SizeSelector({required this.sizes, required this.l10n});
 
@@ -293,8 +283,6 @@ class _SizeSelectorState extends State<_SizeSelector> {
     );
   }
 }
-
-// ─── Color selector ───────────────────────────────────────────────────────────
 
 class _ColorSelector extends StatefulWidget {
   const _ColorSelector({required this.colors, required this.l10n});
@@ -420,8 +408,6 @@ class _ColorSelectorState extends State<_ColorSelector> {
   }
 }
 
-// ─── Bottom action ────────────────────────────────────────────────────────────
-
 class _BottomAction extends StatelessWidget {
   const _BottomAction({
     required this.product,
@@ -454,7 +440,7 @@ class _BottomAction extends StatelessWidget {
       ),
       child: ValueListenableBuilder<LoginType>(
         valueListenable: LoginDetect.loginTypeNotifier,
-        builder: (context, _, __) {
+        builder: (context, _, _) {
           if (LoginDetect.isVendedor) {
             return Row(
               children: [
@@ -492,7 +478,6 @@ class _BottomAction extends StatelessWidget {
   }
 }
 
-// ─── Image carousel ───────────────────────────────────────────────────────────
 class _ImageCarousel extends StatefulWidget {
   const _ImageCarousel({required this.images});
 
@@ -533,7 +518,7 @@ class _ImageCarouselState extends State<_ImageCarousel> {
               itemBuilder: (context, i) => Image.network(
                 widget.images[i],
                 fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) =>
+                errorBuilder: (_, _, _) =>
                     _BrokenImage(colorScheme: colorScheme),
               ),
             ),
@@ -591,8 +576,8 @@ class _EmptyCarousel extends StatelessWidget {
         children: [
           Icon(
             Icons.image_not_supported_outlined,
-            size: 40,
-            color: colorScheme.outline,
+            size: 50,
+            color: colorScheme.primary.withAlpha(150),
           ),
           const SizedBox(height: 8),
           Text(
@@ -615,19 +600,17 @@ class _BrokenImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: colorScheme.surfaceContainerHighest,
+      decoration: BoxDecoration(color: colorScheme.surfaceContainerHighest),
       child: Center(
         child: Icon(
           Icons.broken_image_outlined,
           size: 40,
-          color: colorScheme.outline,
+          color: colorScheme.inverseSurface,
         ),
       ),
     );
   }
 }
-
-// ─── Divider ──────────────────────────────────────────────────────────────────
 
 class _Divider extends StatelessWidget {
   @override

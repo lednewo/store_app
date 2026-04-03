@@ -49,7 +49,15 @@ class _ProductsViewState extends State<ProductsView> {
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.productsTabLabel)),
+      appBar: AppBar(
+        title: Text(l10n.productsTabLabel),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.filter_list_outlined),
+          ),
+        ],
+      ),
       body: SafeArea(
         child: BlocConsumer<ProductsCubit, ProductsState>(
           bloc: _productsCubit,
