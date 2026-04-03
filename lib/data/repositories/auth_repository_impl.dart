@@ -36,7 +36,7 @@ class AuthRepositoryImpl extends AuthRepository {
       _saveLoginAndUserType(loginType: localProfile.userType.loginType);
 
       return Result.ok(localProfile);
-    } catch (e) {
+    } on Exception catch (e) {
       log('Error in getLocalProfile: $e');
       return Result.error(Exception('Failed to get local profile: $e'));
     }
@@ -58,7 +58,7 @@ class AuthRepositoryImpl extends AuthRepository {
       await _authLocalDatasource.saveLocalProfile(profile);
       _saveLoginAndUserType(loginType: profile.userType.loginType);
       return Result.ok(profile);
-    } catch (e) {
+    } on Exception catch (e) {
       log('Error in getProfile: $e');
       return Result.error(Exception('Failed to get profile: $e'));
     }
@@ -106,7 +106,7 @@ class AuthRepositoryImpl extends AuthRepository {
       _isAuthenticated = true;
 
       return Result.ok(responseData);
-    } catch (e) {
+    } on Exception catch (e) {
       return Result.error(
         Failure(
           errorMessage: 'Failed to login: $e',
@@ -135,7 +135,7 @@ class AuthRepositoryImpl extends AuthRepository {
         result.data as Map<String, dynamic>,
       );
       return Result.ok(responseData);
-    } catch (e) {
+    } on Exception catch (e) {
       return Result.error(Exception('Failed to register: $e'));
     }
   }
@@ -154,7 +154,7 @@ class AuthRepositoryImpl extends AuthRepository {
       );
       await _authLocalDatasource.saveLocalProfile(login.profile);
       return Result.ok(null);
-    } catch (e) {
+    } on Exception catch (e) {
       return Result.error(Exception('Failed to save user session data: $e'));
     }
   }
