@@ -1,3 +1,4 @@
+import 'package:base_app/common/utils/extensions/text_words_extension.dart';
 import 'package:base_app/domain/entities/order_detail_entity.dart';
 import 'package:base_app/l10n/l10n.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,7 @@ class BuyerInfoCard extends StatelessWidget {
           _BuyerInfoTile(
             icon: Icons.phone_outlined,
             label: context.l10n.profilePhoneLabel,
-            value: _displayValue(context, buyer.phone),
+            value: _displayValue(context, buyer.phone.phoneFormatter()),
           ),
           const Divider(height: 1, indent: 56),
           _BuyerInfoTile(
