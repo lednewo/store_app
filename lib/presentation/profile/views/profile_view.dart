@@ -53,173 +53,179 @@ class _ProfileViewState extends State<ProfileView> {
               centerTitle: true,
             ),
             body: SafeArea(
-              child: ListView(
-                children: [
-                  Container(
-                    width: double.infinity,
-                    color: colorScheme.primaryContainer,
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 36,
-                      horizontal: 24,
-                    ),
-                    child: Column(
-                      children: [
-                        CircleAvatar(
-                          radius: 44,
-                          backgroundColor: colorScheme.primary,
-                          child: Text(
-                            profile.name.isNotEmpty
-                                ? profile.name[0].toUpperCase()
-                                : '?',
-                            style: textTheme.displaySmall?.copyWith(
-                              color: colorScheme.onPrimary,
-                              fontWeight: FontWeight.bold,
+              child: RefreshIndicator(
+                onRefresh: () async {
+                  _cubit.loadProfile();
+                },
+                child: ListView(
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      color: colorScheme.primaryContainer,
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 36,
+                        horizontal: 24,
+                      ),
+                      child: Column(
+                        children: [
+                          CircleAvatar(
+                            radius: 44,
+                            backgroundColor: colorScheme.primary,
+                            child: Text(
+                              profile.name.isNotEmpty
+                                  ? profile.name[0].toUpperCase()
+                                  : '?',
+                              style: textTheme.displaySmall?.copyWith(
+                                color: colorScheme.onPrimary,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
-                        ),
-                        const SizedBox(height: 14),
-                        Text(
-                          profile.name,
-                          style: textTheme.titleLarge?.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: colorScheme.onPrimaryContainer,
+                          const SizedBox(height: 14),
+                          Text(
+                            profile.name,
+                            style: textTheme.titleLarge?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: colorScheme.onPrimaryContainer,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 8),
-                        Chip(
-                          label: Text(
-                            profile.userType,
-                            style: textTheme.labelSmall?.copyWith(
-                              color: colorScheme.onPrimary,
+                          const SizedBox(height: 8),
+                          Chip(
+                            label: Text(
+                              profile.userType,
+                              style: textTheme.labelSmall?.copyWith(
+                                color: colorScheme.onPrimary,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            backgroundColor: colorScheme.primary,
+                            padding: const EdgeInsets.symmetric(horizontal: 4),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            l10n.profileInfoSectionLabel,
+                            style: textTheme.labelLarge?.copyWith(
+                              color: colorScheme.primary,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          backgroundColor: colorScheme.primary,
-                          padding: const EdgeInsets.symmetric(horizontal: 4),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          l10n.profileInfoSectionLabel,
-                          style: textTheme.labelLarge?.copyWith(
-                            color: colorScheme.primary,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        const SizedBox(height: 12),
-                        Card(
-                          margin: EdgeInsets.zero,
-                          child: Column(
-                            children: [
-                              ListTile(
-                                leading: Icon(
-                                  Icons.email_outlined,
-                                  color: colorScheme.primary,
-                                ),
-                                title: Text(
-                                  l10n.profileEmailLabel,
-                                  style: textTheme.labelSmall?.copyWith(
-                                    color: colorScheme.onSurface.withValues(
-                                      alpha: 0.6,
-                                    ),
-                                  ),
-                                ),
-                                subtitle: Text(
-                                  profile.email,
-                                  style: textTheme.bodyMedium,
-                                ),
-                                visualDensity: VisualDensity.comfortable,
-                              ),
-                              const Divider(height: 1, indent: 56),
-                              ListTile(
-                                leading: Icon(
-                                  Icons.phone_outlined,
-                                  color: colorScheme.primary,
-                                ),
-                                title: Text(
-                                  l10n.profilePhoneLabel,
-                                  style: textTheme.labelSmall?.copyWith(
-                                    color: colorScheme.onSurface.withValues(
-                                      alpha: 0.6,
-                                    ),
-                                  ),
-                                ),
-                                subtitle: Text(
-                                  profile.phone,
-                                  style: textTheme.bodyMedium,
-                                ),
-                                visualDensity: VisualDensity.comfortable,
-                              ),
-                              const Divider(height: 1, indent: 56),
-                              ListTile(
-                                leading: Icon(
-                                  Icons.location_on_outlined,
-                                  color: colorScheme.primary,
-                                ),
-                                title: Text(
-                                  l10n.profileAddressLabel,
-                                  style: textTheme.labelSmall?.copyWith(
-                                    color: colorScheme.onSurface.withValues(
-                                      alpha: 0.6,
-                                    ),
-                                  ),
-                                ),
-                                subtitle: Text(
-                                  profile.address,
-                                  style: textTheme.bodyMedium,
-                                ),
-                                visualDensity: VisualDensity.comfortable,
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: 24),
-                        if (LoginDetect.isVendedor) ...[
-                          AppButton(
-                            label: l10n.addProductButton,
-                            onTap: () => context.push(AppRoutes.createProduct),
-                            isFullWidth: true,
-                          ),
-                          const SizedBox(height: 12),
-                        ],
-                        AppButton(
-                          label: l10n.logoutButton,
-                          variant: AppButtonVariant.destructive,
-                          onTap: _cubit.logout,
-                          isFullWidth: true,
-                        ),
-                        if (LoginDetect.isCliente) ...[
                           const SizedBox(height: 12),
                           Card(
                             margin: EdgeInsets.zero,
-                            child: ListTile(
-                              leading: Icon(
-                                Icons.receipt_long_outlined,
-                                color: colorScheme.primary,
-                              ),
-                              title: Text(
-                                l10n.ordersTitle,
-                                style: textTheme.bodyMedium?.copyWith(
-                                  fontWeight: FontWeight.w500,
+                            child: Column(
+                              children: [
+                                ListTile(
+                                  leading: Icon(
+                                    Icons.email_outlined,
+                                    color: colorScheme.primary,
+                                  ),
+                                  title: Text(
+                                    l10n.profileEmailLabel,
+                                    style: textTheme.labelSmall?.copyWith(
+                                      color: colorScheme.onSurface.withValues(
+                                        alpha: 0.6,
+                                      ),
+                                    ),
+                                  ),
+                                  subtitle: Text(
+                                    profile.email,
+                                    style: textTheme.bodyMedium,
+                                  ),
+                                  visualDensity: VisualDensity.comfortable,
                                 ),
-                              ),
-                              trailing: const Icon(Icons.chevron_right),
-                              onTap: () => context.push(AppRoutes.orders),
+                                const Divider(height: 1, indent: 56),
+                                ListTile(
+                                  leading: Icon(
+                                    Icons.phone_outlined,
+                                    color: colorScheme.primary,
+                                  ),
+                                  title: Text(
+                                    l10n.profilePhoneLabel,
+                                    style: textTheme.labelSmall?.copyWith(
+                                      color: colorScheme.onSurface.withValues(
+                                        alpha: 0.6,
+                                      ),
+                                    ),
+                                  ),
+                                  subtitle: Text(
+                                    profile.phone,
+                                    style: textTheme.bodyMedium,
+                                  ),
+                                  visualDensity: VisualDensity.comfortable,
+                                ),
+                                const Divider(height: 1, indent: 56),
+                                ListTile(
+                                  leading: Icon(
+                                    Icons.location_on_outlined,
+                                    color: colorScheme.primary,
+                                  ),
+                                  title: Text(
+                                    l10n.profileAddressLabel,
+                                    style: textTheme.labelSmall?.copyWith(
+                                      color: colorScheme.onSurface.withValues(
+                                        alpha: 0.6,
+                                      ),
+                                    ),
+                                  ),
+                                  subtitle: Text(
+                                    profile.address,
+                                    style: textTheme.bodyMedium,
+                                  ),
+                                  visualDensity: VisualDensity.comfortable,
+                                ),
+                                Card(
+                                  margin: EdgeInsets.zero,
+                                  child: ListTile(
+                                    leading: Icon(
+                                      Icons.receipt_long_outlined,
+                                      color: colorScheme.primary,
+                                    ),
+                                    title: Text(
+                                      l10n.ordersTitle,
+                                      style: textTheme.bodyMedium?.copyWith(
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    trailing: const Icon(Icons.chevron_right),
+                                    onTap: () => context.push(AppRoutes.orders),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
+                          const SizedBox(height: 24),
+                          if (LoginDetect.isVendedor) ...[
+                            AppButton(
+                              label: l10n.addProductButton,
+                              onTap: () =>
+                                  context.push(AppRoutes.createProduct),
+                              isFullWidth: true,
+                            ),
+                            const SizedBox(height: 12),
+                          ],
+                          AppButton(
+                            label: l10n.logoutButton,
+                            variant: AppButtonVariant.destructive,
+                            onTap: _cubit.logout,
+                            isFullWidth: true,
+                          ),
+
+                          const SizedBox(height: 12),
+
+                          const SizedBox(height: 80),
                         ],
-                        const SizedBox(height: 80),
-                      ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           );
