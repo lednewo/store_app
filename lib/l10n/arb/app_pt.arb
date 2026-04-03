@@ -78,5 +78,21 @@
     "productDetailsColorsLabel": "Cores Disponíveis",
     "productDetailsInfoSectionLabel": "Informações do Produto",
     "productDetailsNoImages": "Nenhuma imagem disponível",
-    "productDetailsImageCount": "{count} imagem(ns)"
+    "productDetailsImageCount": "{count} imagem(ns)",
+    "cartTitle": "Carrinho",
+    "cartEmptyMessage": "Seu carrinho está vazio",
+    "cartAddTitle": "Adicionar ao carrinho",
+    "cartAddButton": "Adicionar",
+    "cartItemAddedMessage": "Produto adicionado ao carrinho!",
+    "cartSizeLabel": "Tamanho",
+    "cartColorLabel": "Cor",
+    "cartQuantityLabel": "Quantidade",
+    "cartTotalLabel": "Total",
+    "cartCheckoutButton": "Finalizar pedido",
+    "ordersTitle": "Meus Pedidos",
+    "ordersEmptyMessage": "Você ainda não fez nenhum pedido",
+    "ordersOrderLabel": "Pedido",
+    "ordersQuantityLabel": "Qtd",
+    "latestProductsLabel": "Novidades",
+    "allProductsLabel": "Todos os produtos"
 }

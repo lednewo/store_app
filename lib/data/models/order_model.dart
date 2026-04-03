@@ -4,7 +4,7 @@ import 'package:base_app/domain/enum/order_status_enum.dart';
 
 class OrderModel extends OrderEntity {
   OrderModel({
-    required super.id,
+    required super.orderId,
     required super.total,
     required super.orderDate,
     required super.status,
@@ -13,8 +13,8 @@ class OrderModel extends OrderEntity {
 
   factory OrderModel.fromJson(Map<String, dynamic> json) {
     return OrderModel(
-      id: json['id'] as String,
-      total: json['total'] as int,
+      orderId: json['orderId'] as String,
+      total: json['total'] as double,
       orderDate: DateTime.parse(json['orderDate'] as String),
       status: OrderStatusEnum.fromString(json['status'] as String),
       items: (json['items'] as List<dynamic>)

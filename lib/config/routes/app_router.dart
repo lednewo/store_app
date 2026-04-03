@@ -1,6 +1,8 @@
 import 'package:base_app/config/routes/app_routes.dart';
 import 'package:base_app/presentation/auth/views/login_view.dart';
 import 'package:base_app/presentation/auth/views/register_view.dart';
+import 'package:base_app/presentation/products/view/cart/view/cart_view.dart';
+import 'package:base_app/presentation/profile/views/orders/view/orders_view.dart';
 import 'package:base_app/presentation/products/view/product_info_view.dart';
 import 'package:base_app/presentation/profile/views/create_product/view/create_product_view.dart';
 import 'package:base_app/presentation/main_shell/view/main_shell_view.dart';
@@ -41,6 +43,14 @@ final GoRouter appRouter = GoRouter(
         final args = state.extra as String;
         return ProductInfoView(productId: args);
       },
+    ),
+    GoRoute(
+      path: AppRoutes.cart,
+      builder: (context, state) => const CartView(),
+    ),
+    GoRoute(
+      path: AppRoutes.orders,
+      builder: (context, state) => const OrdersView(),
     ),
   ],
 );

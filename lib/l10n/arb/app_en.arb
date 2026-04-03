@@ -233,6 +233,22 @@
     "productDetailsColorsLabel": "Available Colors",
     "productDetailsInfoSectionLabel": "Product Information",
     "productDetailsNoImages": "No images available",
-    "productDetailsImageCount": "{count} image(s)"
+    "productDetailsImageCount": "{count} image(s)",
+    "cartTitle": "Cart",
+    "cartEmptyMessage": "Your cart is empty",
+    "cartAddTitle": "Add to cart",
+    "cartAddButton": "Add",
+    "cartItemAddedMessage": "Product added to cart!",
+    "cartSizeLabel": "Size",
+    "cartColorLabel": "Color",
+    "cartQuantityLabel": "Quantity",
+    "cartTotalLabel": "Total",
+    "cartCheckoutButton": "Place order",
+    "ordersTitle": "My Orders",
+    "ordersEmptyMessage": "You haven't placed any orders yet",
+    "ordersOrderLabel": "Order",
+    "ordersQuantityLabel": "Qty",
+    "latestProductsLabel": "New arrivals",
+    "allProductsLabel": "All products"
 
 }
