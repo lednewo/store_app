@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:base_app/config/inject/app_injector.dart';
+import 'package:base_app/domain/dto/pagination_dto.dart';
 import 'package:base_app/l10n/l10n.dart';
+import 'package:base_app/presentation/profile/views/orders/widgets/pagination_controls.dart';
 import 'package:base_app/presentation/profile/views/orders/view_model/orders_cubit.dart';
 import 'package:base_app/presentation/profile/views/orders/view_model/orders_state.dart';
 import 'package:base_app/presentation/profile/views/orders/widgets/order_card.dart';
@@ -21,13 +23,19 @@ class _OrdersViewState extends State<OrdersView> {
   @override
   void initState() {
     super.initState();
-    unawaited(_cubit.fetchOrders());
+    unawaited(_cubit.fetchOrders(PaginationDto(page: 0)));
   }
 
   @override
   void dispose() {
     unawaited(_cubit.close());
     super.dispose();
+  }
+
+  void _goToPage(int page) {
+    unawaited(
+      _cubit.fetchOrders(PaginationDto(page: page)),
+    );
   }
 
   @override
@@ -69,7 +77,8 @@ class _OrdersViewState extends State<OrdersView> {
                     ),
                     const SizedBox(height: 16),
                     FilledButton(
-                      onPressed: _cubit.fetchOrders,
+                      onPressed: () =>
+                          _cubit.fetchOrders(PaginationDto(page: 0)),
                       child: Text(l10n.retryButton),
                     ),
                   ],
@@ -102,14 +111,34 @@ class _OrdersViewState extends State<OrdersView> {
                 );
               }
 
-              return ListView.separated(
-                padding: const EdgeInsets.all(16),
-                itemCount: orders.length,
-                separatorBuilder: (_, _) => const SizedBox(height: 8),
-                itemBuilder: (context, index) {
-                  final order = orders[index];
-                  return OrderCard(order: order);
-                },
+              return Column(
+                children: [
+                  Expanded(
+                    child: RefreshIndicator(
+                      onRefresh: () =>
+                          _cubit.fetchOrders(PaginationDto(page: 0)),
+                      child: ListView.separated(
+                        padding: const EdgeInsets.all(16),
+                        itemCount: orders.length,
+                        separatorBuilder: (_, _) => const SizedBox(height: 8),
+                        itemBuilder: (context, index) {
+                          final order = orders[index];
+                          return OrderCard(
+                            order: order,
+                            onDetailsClosed: () =>
+                                _cubit.fetchOrders(PaginationDto(page: 0)),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                  PaginationControls(
+                    cubit: _cubit,
+                    onPageChanged: _goToPage,
+                    colorScheme: colorScheme,
+                    textTheme: textTheme,
+                  ),
+                ],
               );
             }
 

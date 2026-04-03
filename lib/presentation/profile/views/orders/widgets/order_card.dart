@@ -1,18 +1,24 @@
 import 'dart:ui';
 
+import 'package:base_app/common/widgets/app_button.dart';
+import 'package:base_app/config/routes/app_routes.dart';
 import 'package:base_app/domain/entities/order_entity.dart';
 import 'package:base_app/domain/entities/order_item_entity.dart';
 import 'package:base_app/domain/enum/order_status_enum.dart';
 import 'package:base_app/l10n/l10n.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 class OrderCard extends StatelessWidget {
-  const OrderCard({required this.order, super.key});
+  const OrderCard({
+    required this.order,
+    this.onDetailsClosed,
+    super.key,
+  });
 
   final OrderEntity order;
+  final Future<void> Function()? onDetailsClosed;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +35,6 @@ class OrderCard extends StatelessWidget {
       elevation: 0,
       color: colorScheme.surface,
       child: Theme(
-        // remove o splash/highlight do ExpansionTile
         data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
         child: ExpansionTile(
           tilePadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
@@ -58,7 +63,7 @@ class OrderCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '${l10n.ordersOrderLabel} #${order.orderId.substring(0, 8).toUpperCase()}',
+                      '${l10n.ordersOrderLabel} #${_shortOrderId(order.orderId)}',
                       style: textTheme.titleSmall?.copyWith(
                         fontWeight: FontWeight.w700,
                         letterSpacing: 0.2,
@@ -158,6 +163,24 @@ class OrderCard extends StatelessWidget {
                 ],
               ),
             ),
+
+            AppButton(
+              label: l10n.orderDetailsOpenButton,
+              variant: AppButtonVariant.ghost,
+              onTap: () async {
+                final shouldRefresh = await context.push<bool>(
+                  AppRoutes.orderDetails,
+                  extra: order.orderId,
+                );
+
+                if (!context.mounted || shouldRefresh != true) {
+                  return;
+                }
+
+                await onDetailsClosed?.call();
+              },
+              isFullWidth: true,
+            ),
           ],
         ),
       ),
@@ -198,7 +221,6 @@ class _OrderItemRow extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 10),
-
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -238,6 +260,7 @@ class _OrderItemRow extends StatelessWidget {
               color: colorScheme.primary,
             ),
           ),
+          const SizedBox(width: 8),
         ],
       ),
     );
@@ -279,6 +302,11 @@ class _AttributePill extends StatelessWidget {
   }
 }
 
+String _shortOrderId(String orderId) {
+  final endIndex = orderId.length < 8 ? orderId.length : 8;
+  return orderId.substring(0, endIndex).toUpperCase();
+}
+
 class _StatusChip extends StatelessWidget {
   const _StatusChip({required this.status});
 
@@ -298,6 +326,7 @@ class _StatusChip extends StatelessWidget {
   Widget build(BuildContext context) {
     final color = _color(context);
     final textTheme = Theme.of(context).textTheme;
+    final l10n = context.l10n;
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
@@ -307,7 +336,13 @@ class _StatusChip extends StatelessWidget {
         border: Border.all(color: color.withAlpha(100)),
       ),
       child: Text(
-        status.label,
+        switch (status) {
+          OrderStatusEnum.pendente => l10n.orderDetailsStatusPending,
+          OrderStatusEnum.pago => l10n.orderDetailsStatusPaid,
+          OrderStatusEnum.enviado => l10n.orderDetailsStatusShipped,
+          OrderStatusEnum.entregue => l10n.orderDetailsStatusDelivered,
+          OrderStatusEnum.cancelado => l10n.orderDetailsStatusCancelled,
+        },
         style: textTheme.labelSmall?.copyWith(
           color: color,
           fontWeight: FontWeight.w600,

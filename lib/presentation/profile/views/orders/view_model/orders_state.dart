@@ -1,3 +1,4 @@
+import 'package:base_app/domain/entities/order_detail_entity.dart';
 import 'package:base_app/domain/entities/paginated_orders_entity.dart';
 import 'package:flutter/foundation.dart';
 
@@ -16,12 +17,25 @@ class OrdersLoading extends OrdersState {
 
 class OrdersLoaded extends OrdersState {
   const OrdersLoaded(this.orders);
-
   final PaginatedOrdersEntity orders;
 }
 
 class OrdersError extends OrdersState {
   const OrdersError(this.message);
-
   final String message;
+}
+
+class OrderStatusUpdated extends OrdersState {
+  const OrderStatusUpdated(this.message);
+  final String message;
+}
+
+class OrderStatusUpdateError extends OrdersState {
+  const OrderStatusUpdateError(this.message);
+  final String message;
+}
+
+class OrderDetailsLoaded extends OrdersState {
+  const OrderDetailsLoaded(this.orderDetails);
+  final OrderDetailEntity orderDetails;
 }

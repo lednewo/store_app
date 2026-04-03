@@ -248,6 +248,33 @@
     "ordersEmptyMessage": "You haven't placed any orders yet",
     "ordersOrderLabel": "Order",
     "ordersQuantityLabel": "Qty",
+    "orderDetailsTitle": "Order Details",
+    "orderDetailsOrderIdLabel": "Order ID",
+    "orderDetailsDateLabel": "Order date",
+    "orderDetailsStatusLabel": "Status",
+    "orderDetailsBuyerTitle": "Buyer",
+    "orderDetailsOpenButton": "Details",
+    "orderDetailsProductsTitle": "Order items",
+    "orderDetailsUnitPriceLabel": "Unit price",
+    "orderDetailsEmptyItemsMessage": "This order has no items.",
+    "orderDetailsNotProvidedLabel": "Not provided",
+    "orderDetailsUpdateStatusButton": "Update status",
+    "orderDetailsUpdateStatusSheetTitle": "Update status",
+    "orderDetailsUpdateStatusSheetSubtitle": "Select the new order status",
+    "orderDetailsUpdateStatusConfirmButton": "Confirm update",
+    "orderDetailsStatusPending": "Pending",
+    "orderDetailsStatusPaid": "Paid",
+    "orderDetailsStatusShipped": "Shipped",
+    "orderDetailsStatusDelivered": "Delivered",
+    "orderDetailsStatusCancelled": "Cancelled",
+    "orderDetailsItemsCount": "{count, plural, =0{No items} =1{1 item} other{{count} items}}",
+    "@orderDetailsItemsCount": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
     "latestProductsLabel": "New arrivals",
     "allProductsLabel": "All products"
 

@@ -1,4 +1,4 @@
-import 'package:base_app/data/models/order_model.dart';
+import 'package:base_app/data/repositories/order_model.dart';
 import 'package:base_app/domain/entities/paginated_orders_entity.dart';
 
 class PaginatedOrdersModel extends PaginatedOrdersEntity {

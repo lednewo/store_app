@@ -10,24 +10,21 @@ import 'package:base_app/config/network/dio_client.dart';
 import 'package:base_app/data/datasources/auth/auth_datasource.dart';
 import 'package:base_app/data/datasources/auth/auth_local_datasource.dart';
 import 'package:base_app/data/datasources/auth/auth_local_datasource_impl.dart';
-import 'package:base_app/data/datasources/home_remote_datasource.dart';
 import 'package:base_app/data/datasources/order/order_datasource.dart';
 import 'package:base_app/data/datasources/products/products_datasource.dart';
 import 'package:base_app/data/repositories/auth_repository_impl.dart';
-import 'package:base_app/data/repositories/home_repository_impl.dart';
-import 'package:base_app/data/repositories/orders_reposiroty_impl.dart';
+import 'package:base_app/data/repositories/orders_repository_impl.dart';
 import 'package:base_app/data/repositories/products_repository_impl.dart';
 import 'package:base_app/domain/interfaces/auth_repository.dart';
-import 'package:base_app/domain/interfaces/home_repository.dart';
 import 'package:base_app/domain/interfaces/order_repository.dart';
 import 'package:base_app/domain/interfaces/products_repository.dart';
 import 'package:base_app/presentation/auth/view_model/login_cubit.dart';
 import 'package:base_app/presentation/auth/view_model/register_cubit.dart';
 import 'package:base_app/presentation/products/view/cart/view_model/cart_cubit.dart';
-import 'package:base_app/presentation/profile/views/orders/view_model/orders_cubit.dart';
 import 'package:base_app/presentation/products/view_model/products_cubit.dart';
-import 'package:base_app/presentation/profile/views/create_product/view_model/create_product_cubit.dart';
 import 'package:base_app/presentation/profile/view_model/profile_cubit.dart';
+import 'package:base_app/presentation/profile/views/create_product/view_model/create_product_cubit.dart';
+import 'package:base_app/presentation/profile/views/orders/view_model/orders_cubit.dart';
 import 'package:base_app/presentation/splash/view_model/splash_cubit.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
@@ -74,9 +71,6 @@ class AppInjector {
       ..registerLazySingleton<AuthLocalDatasource>(
         () => AuthLocalDatasourceImpl(inject()),
       )
-      ..registerLazySingleton<HomeRemoteDataSource>(
-        () => HomeRemoteDataSource(inject()),
-      )
       ..registerLazySingleton<ProductsDatasource>(
         () => ProductsDatasource(httpService: inject()),
       )
@@ -90,14 +84,11 @@ class AppInjector {
           authLocalDatasource: inject(),
         ),
       )
-      ..registerLazySingleton<HomeRepository>(
-        () => HomeRepositoryImpl(inject()),
-      )
       ..registerLazySingleton<ProductsRepository>(
         () => ProductsRepositoryImpl(productsDatasource: inject()),
       )
       ..registerLazySingleton<OrderRepository>(
-        () => OrdersReposirotyImpl(orderDatasource: inject()),
+        () => OrdersRepositoryImpl(orderDatasource: inject()),
       )
       // Services
       ..registerLazySingleton<InAppPurchaseService>(

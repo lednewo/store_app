@@ -93,6 +93,33 @@
     "ordersEmptyMessage": "Você ainda não fez nenhum pedido",
     "ordersOrderLabel": "Pedido",
     "ordersQuantityLabel": "Qtd",
+    "orderDetailsTitle": "Detalhes do Pedido",
+    "orderDetailsOrderIdLabel": "ID do pedido",
+    "orderDetailsDateLabel": "Data do pedido",
+    "orderDetailsStatusLabel": "Status",
+    "orderDetailsBuyerTitle": "Comprador",
+    "orderDetailsOpenButton": "Detalhes",
+    "orderDetailsProductsTitle": "Produtos do pedido",
+    "orderDetailsUnitPriceLabel": "Preço unitário",
+    "orderDetailsEmptyItemsMessage": "Este pedido não possui itens cadastrados.",
+    "orderDetailsNotProvidedLabel": "Não informado",
+    "orderDetailsUpdateStatusButton": "Atualizar status",
+    "orderDetailsUpdateStatusSheetTitle": "Atualizar status",
+    "orderDetailsUpdateStatusSheetSubtitle": "Selecione o novo status do pedido",
+    "orderDetailsUpdateStatusConfirmButton": "Confirmar atualização",
+    "orderDetailsStatusPending": "Pendente",
+    "orderDetailsStatusPaid": "Pago",
+    "orderDetailsStatusShipped": "Enviado",
+    "orderDetailsStatusDelivered": "Entregue",
+    "orderDetailsStatusCancelled": "Cancelado",
+    "orderDetailsItemsCount": "{count, plural, =0{Nenhum item} =1{1 item} other{{count} itens}}",
+    "@orderDetailsItemsCount": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
     "latestProductsLabel": "Novidades",
     "allProductsLabel": "Todos os produtos"
 }
