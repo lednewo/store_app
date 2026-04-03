@@ -5,8 +5,8 @@ import 'package:go_router/go_router.dart';
 
 class ProductHorizontalCardWidget extends StatelessWidget {
   const ProductHorizontalCardWidget({
-    super.key,
     required this.product,
+    super.key,
   });
 
   final ProductEntity product;
@@ -120,7 +120,7 @@ class _CardImage extends StatelessWidget {
         child: Image.network(
           url!,
           fit: BoxFit.cover,
-          errorBuilder: (_, __, ___) => placeholder,
+          errorBuilder: (_, _, _) => placeholder,
         ),
       ),
     );
