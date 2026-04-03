@@ -26,7 +26,7 @@ class ProductHorizontalCardWidget extends StatelessWidget {
         ),
         child: Ink(
           decoration: BoxDecoration(
-            color: colorScheme.surface,
+            color: colorScheme.tertiary,
             borderRadius: BorderRadius.circular(14),
             border: Border.all(
               color: colorScheme.outlineVariant.withAlpha(120),
@@ -56,7 +56,7 @@ class ProductHorizontalCardWidget extends StatelessWidget {
                     Text(
                       '${product.brand} · ${product.model}',
                       style: textTheme.bodySmall?.copyWith(
-                        color: colorScheme.onSurfaceVariant,
+                        color: colorScheme.onInverseSurface,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -98,14 +98,14 @@ class _CardImage extends StatelessWidget {
       width: double.infinity,
       height: height,
       decoration: BoxDecoration(
-        color: colorScheme.surfaceContainerHighest,
+        color: colorScheme.inversePrimary,
         borderRadius: borderRadius,
       ),
       child: Center(
         child: Icon(
           Icons.checkroom_outlined,
           size: 28,
-          color: colorScheme.onSurfaceVariant.withAlpha(100),
+          color: colorScheme.onInverseSurface.withAlpha(100),
         ),
       ),
     );
