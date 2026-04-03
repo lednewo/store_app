@@ -1,5 +1,6 @@
 import 'package:base_app/domain/dto/pagination_dto.dart';
 import 'package:base_app/domain/dto/product_dto.dart';
+import 'package:base_app/domain/enum/status_enum.dart';
 import 'package:base_app/domain/interfaces/products_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'products_state.dart';
@@ -14,6 +15,10 @@ class ProductsCubit extends Cubit<ProductsState> {
   bool hasMore = false;
   int totalPages = 0;
   int currentPage = 0;
+  String? currentSearch;
+  double? currentMinPrice;
+  double? currentMaxPrice;
+  StatusEnum? currentStatus;
 
   bool get canGoPrevius => currentPage > 0;
   bool get canGoNext => currentPage + 1 < totalPages;
@@ -28,6 +33,10 @@ class ProductsCubit extends Cubit<ProductsState> {
         hasMore =
             success.data.length == dto.size && currentPage < totalPages - 1;
         currentPage = dto.page;
+        currentSearch = dto.name;
+        currentMinPrice = dto.minPrice;
+        currentMaxPrice = dto.maxPrice;
+        currentStatus = dto.status;
         totalPages = success.totalPages;
 
         emit(ProductsSuccess(success));
