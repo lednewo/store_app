@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:base_app/common/utils/formatters/real_formatter.dart';
+import 'package:base_app/common/widgets/app_button.dart';
 import 'package:base_app/config/inject/app_injector.dart';
 import 'package:base_app/domain/dto/product_dto.dart';
 import 'package:base_app/domain/enum/audience_enum.dart';
@@ -104,7 +105,11 @@ class _CreateProductViewState extends State<CreateProductView> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.createProductTitle),
+        title: Text(
+          l10n.createProductTitle,
+          style: Theme.of(context).textTheme.headlineLarge,
+        ),
+        centerTitle: true,
       ),
       body: SafeArea(
         child: BlocListener<CreateProductCubit, CreateProductState>(
@@ -295,17 +300,11 @@ class _CreateProductViewState extends State<CreateProductView> {
                         },
                       ),
                       const SizedBox(height: 24),
-                      ElevatedButton(
-                        onPressed: isLoading ? null : _submit,
-                        child: isLoading
-                            ? const SizedBox(
-                                height: 20,
-                                width: 20,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                ),
-                              )
-                            : Text(l10n.createProductButton),
+                      AppButton(
+                        label: l10n.createProductButton,
+                        onTap: isLoading ? null : _submit,
+                        isFullWidth: true,
+                        isLoading: isLoading,
                       ),
                     ],
                   ),

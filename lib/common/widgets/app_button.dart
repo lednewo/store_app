@@ -127,10 +127,10 @@ class _AppButtonState extends State<AppButton>
       AppButtonVariant.destructive => (
         isDisabled
             ? colorScheme.onSurface.withOpacity(0.12)
-            : colorScheme.errorContainer,
+            : colorScheme.error.withValues(alpha: 0.8),
         isDisabled
             ? colorScheme.onSurface.withOpacity(0.38)
-            : colorScheme.onErrorContainer,
+            : colorScheme.surface,
         Colors.transparent,
       ),
     };

@@ -1,4 +1,5 @@
 import 'package:base_app/common/utils/login_detect.dart';
+import 'package:base_app/common/widgets/app_button.dart';
 import 'package:base_app/config/inject/app_injector.dart';
 import 'package:base_app/config/routes/app_routes.dart';
 import 'package:base_app/l10n/l10n.dart';
@@ -47,16 +48,10 @@ class _ProfileViewState extends State<ProfileView> {
         if (state is ProfileLoaded) {
           final profile = state.profile;
           return Scaffold(
-            appBar: AppBar(title: Text(l10n.profileTitle)),
-            floatingActionButton: profile.userType.toUpperCase() == 'VENDEDOR'
-                ? FloatingActionButton.extended(
-                    onPressed: () {
-                      context.push(AppRoutes.createProduct);
-                    },
-                    icon: const Icon(Icons.add),
-                    label: Text(l10n.addProductButton),
-                  )
-                : null,
+            appBar: AppBar(
+              title: Text(l10n.profileTitle),
+              centerTitle: true,
+            ),
             body: SafeArea(
               child: ListView(
                 children: [
@@ -182,22 +177,23 @@ class _ProfileViewState extends State<ProfileView> {
                                 ),
                                 visualDensity: VisualDensity.comfortable,
                               ),
-                              Container(
-                                alignment: Alignment.centerRight,
-                                padding: const EdgeInsets.only(
-                                  right: 16,
-                                  top: 8,
-                                  bottom: 16,
-                                ),
-                                child: TextButton(
-                                  onPressed: () async {
-                                    await _cubit.logout();
-                                  },
-                                  child: Text('Sair'),
-                                ),
-                              ),
                             ],
                           ),
+                        ),
+                        const SizedBox(height: 24),
+                        if (LoginDetect.isVendedor) ...[
+                          AppButton(
+                            label: l10n.addProductButton,
+                            onTap: () => context.push(AppRoutes.createProduct),
+                            isFullWidth: true,
+                          ),
+                          const SizedBox(height: 12),
+                        ],
+                        AppButton(
+                          label: l10n.logoutButton,
+                          variant: AppButtonVariant.destructive,
+                          onTap: _cubit.logout,
+                          isFullWidth: true,
                         ),
                         if (LoginDetect.isCliente) ...[
                           const SizedBox(height: 12),

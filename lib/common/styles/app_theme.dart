@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 // app_theme.dart
+
 import 'package:google_fonts/google_fonts.dart';
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -27,7 +28,7 @@ class AppColors {
   static const Color textHint = Color(0xFFC9A96E); // Ouro
 
   // ── Feedback ──────────────────────────────────────────────────────────────
-  static const Color error = Color(0xFFB94040);
+  static const Color error = Color(0xFF7A1111);
   static const Color success = Color(0xFF3A7D44);
 
   // ── Dark mode ─────────────────────────────────────────────────────────────
