@@ -1,5 +1,6 @@
 class ProductDto {
   ProductDto({
+    this.id,
     required this.name,
     required this.model,
     required this.brand,
@@ -12,6 +13,7 @@ class ProductDto {
     required this.status,
     required this.urlImages,
   });
+  final String? id;
   final String name;
   final String model;
   final String brand;
@@ -25,6 +27,7 @@ class ProductDto {
   final List<String>? urlImages;
 
   Map<String, dynamic> toMap() => {
+    if (id != null) 'id': id,
     'name': name,
     'model': model,
     'brand': brand,

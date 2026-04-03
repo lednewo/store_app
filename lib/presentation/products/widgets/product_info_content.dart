@@ -12,11 +12,13 @@ class ProductInfoContent extends StatelessWidget {
     super.key,
     this.onEdit,
     this.onDelete,
+    this.onAddToCart,
   });
 
   final ProductEntity product;
   final void Function()? onEdit;
   final void Function()? onDelete;
+  final void Function()? onAddToCart;
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +56,7 @@ class ProductInfoContent extends StatelessWidget {
         product: product,
         onEdit: onEdit,
         onDelete: onDelete,
+        onAddToCart: onAddToCart,
       ),
     );
   }
@@ -420,11 +423,17 @@ class _ColorSelectorState extends State<_ColorSelector> {
 // ─── Bottom action ────────────────────────────────────────────────────────────
 
 class _BottomAction extends StatelessWidget {
-  const _BottomAction({required this.product, this.onEdit, this.onDelete});
+  const _BottomAction({
+    required this.product,
+    this.onEdit,
+    this.onDelete,
+    this.onAddToCart,
+  });
 
   final ProductEntity product;
   final void Function()? onEdit;
   final void Function()? onDelete;
+  final void Function()? onAddToCart;
 
   @override
   Widget build(BuildContext context) {
@@ -475,7 +484,7 @@ class _BottomAction extends StatelessWidget {
             label: 'Adicionar ao carrinho',
             icon: Icons.shopping_bag_outlined,
             isFullWidth: true,
-            onTap: () {},
+            onTap: onAddToCart,
           );
         },
       ),

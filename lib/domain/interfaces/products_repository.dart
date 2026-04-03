@@ -10,4 +10,7 @@ abstract class ProductsRepository {
   Future<Result<DefaultReturnEntity>> createProduct(ProductDto dto);
   Future<Result<PaginatedProductsEntity>> getProducts(PaginationDto dto);
   Future<Result<ProductEntity>> getById(String id);
+  Future<Result<DefaultReturnEntity>> updateProduct(ProductDto dto);
+  Future<Result<DefaultReturnEntity>> deleteProduct(String id);
+  Future<Result<List<ProductEntity>>> getLatestProducts();
 }

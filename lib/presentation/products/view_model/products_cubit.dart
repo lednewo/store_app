@@ -38,6 +38,21 @@ class ProductsCubit extends Cubit<ProductsState> {
     );
   }
 
+  Future<void> fetchLatestProducts() async {
+    emit(const ProductsLoading());
+
+    final result = await _repository.getLatestProducts();
+
+    result.when(
+      ok: (success) {
+        emit(LatestProductsSuccess(success));
+      },
+      error: (error) {
+        emit(LatestProductsError(error.toString()));
+      },
+    );
+  }
+
   Future<void> getById(String id) async {
     emit(const ProductsLoading());
 

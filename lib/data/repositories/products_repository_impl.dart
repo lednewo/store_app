@@ -98,4 +98,83 @@ class ProductsRepositoryImpl implements ProductsRepository {
       );
     }
   }
+
+  @override
+  Future<Result<DefaultReturnEntity>> deleteProduct(String id) async {
+    try {
+      final result = await _productsDatasource.deleteProduct(id);
+
+      if (!result.isSuccess && result.data == null) {
+        return Result.error(
+          Failure(
+            errorMessage: result.message ?? 'Erro ao deletar produto',
+            responseStatus: result.status,
+            statusCode: result.statusCode,
+          ),
+        );
+      }
+
+      return Result.ok(
+        DefaultReturnModel.fromMap(result.data as Map<String, dynamic>),
+      );
+    } on Exception catch (e) {
+      log('Error in deleteProduct: $e');
+      return Result.error(
+        Failure(errorMessage: 'Failed to delete product: $e'),
+      );
+    }
+  }
+
+  @override
+  Future<Result<DefaultReturnEntity>> updateProduct(ProductDto dto) async {
+    try {
+      final result = await _productsDatasource.updateProduct(dto);
+
+      if (!result.isSuccess && result.data == null) {
+        return Result.error(
+          Failure(
+            errorMessage: result.message ?? 'Erro ao atualizar produto',
+            responseStatus: result.status,
+            statusCode: result.statusCode,
+          ),
+        );
+      }
+
+      return Result.ok(
+        DefaultReturnModel.fromMap(result.data as Map<String, dynamic>),
+      );
+    } on Exception catch (e) {
+      log('Error in updateProduct: $e');
+      return Result.error(
+        Failure(errorMessage: 'Failed to update product: $e'),
+      );
+    }
+  }
+
+  @override
+  Future<Result<List<ProductEntity>>> getLatestProducts() async {
+    try {
+      final result = await _productsDatasource.getLatestProducts();
+
+      if (!result.isSuccess && result.data == null) {
+        return Result.error(
+          Failure(
+            errorMessage: result.message ?? 'Erro ao obter últimos produtos',
+            responseStatus: result.status,
+            statusCode: result.statusCode,
+          ),
+        );
+      }
+
+      final products = (result.data as List<dynamic>)
+          .map((item) => ProductModel.fromJson(item as Map<String, dynamic>))
+          .toList();
+      return Result.ok(products);
+    } on Exception catch (e) {
+      log('Error in getLatestProducts: $e');
+      return Result.error(
+        Failure(errorMessage: 'Failed to get latest products: $e'),
+      );
+    }
+  }
 }

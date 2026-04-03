@@ -16,6 +16,11 @@ class ProductsDatasource {
     return response;
   }
 
+  Future<BaseResponse> getLatestProducts() async {
+    final response = await _httpService.get('/products/latestProducts');
+    return response;
+  }
+
   Future<BaseResponse> createProduct(ProductDto dto) async {
     final response = await _httpService.post(
       '/products/create',
@@ -27,6 +32,23 @@ class ProductsDatasource {
   Future<BaseResponse> getById(String id) async {
     final response = await _httpService.get(
       '/products/details',
+      queryParameters: {'id': id},
+    );
+    return response;
+  }
+
+  Future<BaseResponse> updateProduct(ProductDto dto) async {
+    final response = await _httpService.put(
+      '/products/update',
+      data: dto.toMap(),
+      queryParameters: {'id': dto.id},
+    );
+    return response;
+  }
+
+  Future<BaseResponse> deleteProduct(String id) async {
+    final response = await _httpService.delete(
+      '/products/delete',
       queryParameters: {'id': id},
     );
     return response;

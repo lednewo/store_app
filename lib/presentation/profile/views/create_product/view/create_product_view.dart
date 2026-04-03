@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:base_app/common/utils/formatters/real_formatter.dart';
 import 'package:base_app/config/inject/app_injector.dart';
+import 'package:base_app/domain/dto/product_dto.dart';
 import 'package:base_app/domain/enum/audience_enum.dart';
 import 'package:base_app/domain/enum/gender_enum.dart';
 import 'package:base_app/domain/enum/status_enum.dart';
@@ -80,16 +81,19 @@ class _CreateProductViewState extends State<CreateProductView> {
 
     unawaited(
       _cubit.createProduct(
-        name: _nameController.text.trim(),
-        model: _modelController.text.trim(),
-        brand: _brandController.text.trim(),
-        description: _descriptionController.text.trim(),
-        gender: _selectedGender.label,
-        audience: _selectedAudience.value,
-        sizes: sizes,
-        colors: colors,
-        price: price,
-        status: _selectedStatus.value,
+        ProductDto(
+          name: _nameController.text.trim(),
+          model: _modelController.text.trim(),
+          brand: _brandController.text.trim(),
+          description: _descriptionController.text.trim(),
+          gender: _selectedGender.label,
+          audience: _selectedAudience.value,
+          sizes: sizes,
+          colors: colors,
+          price: price,
+          status: _selectedStatus.value,
+          urlImages: [],
+        ),
       ),
     );
   }

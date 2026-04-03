@@ -44,3 +44,17 @@ class ProductUpdateSuccess extends ProductsState {
   const ProductUpdateSuccess(this.message);
   final String message;
 }
+
+class LatestProductsSuccess extends ProductsState {
+  const LatestProductsSuccess(this.latestProducts);
+  final List<ProductEntity> latestProducts;
+}
+
+class LatestProductsError extends ProductsState {
+  const LatestProductsError(this.message);
+  final String message;
+}
+
+class LatestProductsLoading extends ProductsState {
+  const LatestProductsLoading();
+}

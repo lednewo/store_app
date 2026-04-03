@@ -20,6 +20,7 @@ class BaseResponse {
     this.message,
     this.statusCode,
   });
+  // ignore: strict_raw_type
   factory BaseResponse.fromDioResponse(Response response) {
     AppLoggerService.logResponse(
       response.realUri,
