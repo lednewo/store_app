@@ -1,12 +1,12 @@
 import 'package:base_app/config/routes/app_routes.dart';
 import 'package:base_app/presentation/auth/views/login_view.dart';
 import 'package:base_app/presentation/auth/views/register_view.dart';
+import 'package:base_app/presentation/base/view/main_shell_view.dart';
 import 'package:base_app/presentation/products/view/cart/view/cart_view.dart';
-import 'package:base_app/presentation/profile/views/orders/view/order_details_view.dart';
-import 'package:base_app/presentation/profile/views/orders/view/orders_view.dart';
 import 'package:base_app/presentation/products/view/product_info_view.dart';
 import 'package:base_app/presentation/profile/views/create_product/view/create_product_view.dart';
-import 'package:base_app/presentation/main_shell/view/main_shell_view.dart';
+import 'package:base_app/presentation/profile/views/orders/view/order_details_view.dart';
+import 'package:base_app/presentation/profile/views/orders/view/orders_view.dart';
 import 'package:base_app/presentation/profile/views/profile_view.dart';
 import 'package:base_app/presentation/splash/view/splash_view.dart';
 import 'package:go_router/go_router.dart';

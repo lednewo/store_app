@@ -1,7 +1,7 @@
 import 'package:base_app/common/utils/login_detect.dart';
 import 'package:base_app/config/inject/app_injector.dart';
 import 'package:base_app/l10n/l10n.dart';
-import 'package:base_app/presentation/main_shell/content/dashboard_tab_content.dart';
+import 'package:base_app/presentation/base/content/dashboard_tab_content.dart';
 import 'package:base_app/presentation/products/view/products_view.dart';
 import 'package:base_app/presentation/profile/views/profile_view.dart';
 import 'package:base_app/presentation/profile/view_model/profile_cubit.dart';
