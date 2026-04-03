@@ -1,3 +1,4 @@
+import 'package:base_app/common/utils/login_detect.dart';
 import 'package:base_app/config/inject/app_injector.dart';
 import 'package:base_app/config/routes/app_routes.dart';
 import 'package:base_app/l10n/l10n.dart';
@@ -198,6 +199,26 @@ class _ProfileViewState extends State<ProfileView> {
                             ],
                           ),
                         ),
+                        if (LoginDetect.isCliente) ...[
+                          const SizedBox(height: 12),
+                          Card(
+                            margin: EdgeInsets.zero,
+                            child: ListTile(
+                              leading: Icon(
+                                Icons.receipt_long_outlined,
+                                color: colorScheme.primary,
+                              ),
+                              title: Text(
+                                l10n.ordersTitle,
+                                style: textTheme.bodyMedium?.copyWith(
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              trailing: const Icon(Icons.chevron_right),
+                              onTap: () => context.push(AppRoutes.orders),
+                            ),
+                          ),
+                        ],
                         const SizedBox(height: 80),
                       ],
                     ),
