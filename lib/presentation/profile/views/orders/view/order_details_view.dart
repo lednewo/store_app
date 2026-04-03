@@ -161,7 +161,6 @@ class _OrderDetailsViewState extends State<OrderDetailsView> {
                     },
                   );
                 }
-
                 return const SizedBox.shrink();
               },
             ),
