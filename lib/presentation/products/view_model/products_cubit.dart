@@ -1,4 +1,5 @@
 import 'package:base_app/domain/dto/pagination_dto.dart';
+import 'package:base_app/domain/dto/product_dto.dart';
 import 'package:base_app/domain/interfaces/products_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'products_state.dart';
@@ -45,6 +46,36 @@ class ProductsCubit extends Cubit<ProductsState> {
     result.when(
       ok: (success) {
         emit(ProductDetailsSuccess(success));
+      },
+      error: (error) {
+        emit(ProductsError(error.toString()));
+      },
+    );
+  }
+
+  Future<void> deleteProduct(String id) async {
+    emit(const ProductsLoading());
+
+    final result = await _repository.deleteProduct(id);
+
+    result.when(
+      ok: (success) {
+        emit(ProductDeleteSuccess(success.message));
+      },
+      error: (error) {
+        emit(ProductDeleteError(error.toString()));
+      },
+    );
+  }
+
+  Future<void> updateProduct(ProductDto dto) async {
+    emit(const ProductsLoading());
+
+    final result = await _repository.updateProduct(dto);
+
+    result.when(
+      ok: (success) {
+        emit(ProductUpdateSuccess(success.message));
       },
       error: (error) {
         emit(ProductsError(error.toString()));

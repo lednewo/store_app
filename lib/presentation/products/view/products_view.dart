@@ -52,6 +52,11 @@ class _ProductsViewState extends State<ProductsView> {
                 SnackBar(content: Text(state.message)),
               );
             }
+            if (state is ProductDeleteSuccess) {
+              _productsCubit.fetchProducts(
+                PaginationDto(page: 0, size: _pageSize),
+              );
+            }
           },
           builder: (context, state) {
             if (state is ProductsLoading) {
@@ -86,25 +91,32 @@ class _ProductsViewState extends State<ProductsView> {
               return Column(
                 children: [
                   Expanded(
-                    child: GridView.builder(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 12,
-                      ),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 12,
-                            mainAxisSpacing: 12,
-                            childAspectRatio: 0.72,
-                          ),
-                      itemCount: products.length,
-                      itemBuilder: (context, index) {
-                        return ProductCardWidget(
-                          product: products[index],
-                          style: ProductCardStyle.vertical,
+                    child: RefreshIndicator(
+                      onRefresh: () async {
+                        _productsCubit.fetchProducts(
+                          PaginationDto(page: 0, size: _pageSize),
                         );
                       },
+                      child: GridView.builder(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 12,
+                        ),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 12,
+                              mainAxisSpacing: 12,
+                              childAspectRatio: 0.72,
+                            ),
+                        itemCount: products.length,
+                        itemBuilder: (context, index) {
+                          return ProductCardWidget(
+                            product: products[index],
+                            style: ProductCardStyle.vertical,
+                          );
+                        },
+                      ),
                     ),
                   ),
                   PaginationControls(

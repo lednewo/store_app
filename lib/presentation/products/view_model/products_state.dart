@@ -29,3 +29,18 @@ class ProductDetailsSuccess extends ProductsState {
   const ProductDetailsSuccess(this.product);
   final ProductEntity product;
 }
+
+class ProductDeleteSuccess extends ProductsState {
+  const ProductDeleteSuccess(this.message);
+  final String message;
+}
+
+class ProductDeleteError extends ProductsState {
+  const ProductDeleteError(this.message);
+  final String message;
+}
+
+class ProductUpdateSuccess extends ProductsState {
+  const ProductUpdateSuccess(this.message);
+  final String message;
+}

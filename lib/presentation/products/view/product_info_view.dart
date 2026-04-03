@@ -1,3 +1,5 @@
+import 'package:base_app/common/widgets/app_dialog.dart';
+import 'package:base_app/common/widgets/app_snackbar.dart';
 import 'package:base_app/config/inject/app_injector.dart';
 import 'package:base_app/l10n/l10n.dart';
 import 'package:base_app/presentation/products/view_model/products_cubit.dart';
@@ -5,6 +7,7 @@ import 'package:base_app/presentation/products/view_model/products_state.dart';
 import 'package:base_app/presentation/products/widgets/product_info_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class ProductInfoView extends StatefulWidget {
   const ProductInfoView({
@@ -32,6 +35,21 @@ class _ProductInfoViewState extends State<ProductInfoView> {
     super.dispose();
   }
 
+  Future<void> _showDeleteProduct() async {
+    final confirmed = await AppDialog.show(
+      context: context,
+      title: 'Excluir produto?',
+      description: 'Esta ação não pode ser desfeita.',
+      confirmLabel: 'Excluir',
+      cancelLabel: context.l10n.cancelButton,
+      isDangerous: true,
+    );
+
+    if (confirmed) {
+      await _productsCubit.deleteProduct(widget.productId);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
@@ -44,8 +62,25 @@ class _ProductInfoViewState extends State<ProductInfoView> {
         centerTitle: true,
       ),
       body: SafeArea(
-        child: BlocBuilder<ProductsCubit, ProductsState>(
+        child: BlocConsumer<ProductsCubit, ProductsState>(
           bloc: _productsCubit,
+          listener: (context, state) {
+            if (state is ProductDeleteSuccess) {
+              context.pop();
+              AppSnackbar.showSuccess(
+                context,
+                message: state.message,
+              );
+            }
+
+            if (state is ProductDeleteError) {
+              AppSnackbar.showError(
+                context,
+                message: state.message,
+              );
+              _productsCubit.getById(widget.productId);
+            }
+          },
           builder: (context, state) {
             if (state is ProductsLoading) {
               return const Center(child: CircularProgressIndicator());
@@ -80,9 +115,12 @@ class _ProductInfoViewState extends State<ProductInfoView> {
             }
 
             if (state is ProductDetailsSuccess) {
-              return ProductInfoContent(product: state.product);
+              return ProductInfoContent(
+                product: state.product,
+                onEdit: () {},
+                onDelete: _showDeleteProduct,
+              );
             }
-
             return const SizedBox.shrink();
           },
         ),
