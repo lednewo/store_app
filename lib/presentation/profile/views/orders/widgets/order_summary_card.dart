@@ -1,3 +1,4 @@
+import 'package:base_app/common/utils/login_detect.dart';
 import 'package:base_app/common/widgets/app_button.dart';
 import 'package:base_app/domain/entities/order_detail_entity.dart';
 import 'package:base_app/domain/enum/order_status_enum.dart';
@@ -123,11 +124,12 @@ class OrderSummaryCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            AppButton(
-              label: l10n.orderDetailsUpdateStatusButton,
-              onTap: onUpdateStatus,
-              isFullWidth: true,
-            ),
+            if (!LoginDetect.isCliente)
+              AppButton(
+                label: l10n.orderDetailsUpdateStatusButton,
+                onTap: onUpdateStatus,
+                isFullWidth: true,
+              ),
           ],
         ),
       ),

@@ -1,3 +1,4 @@
+import 'package:base_app/common/utils/extensions/text_words_extension.dart';
 import 'package:base_app/common/utils/login_detect.dart';
 import 'package:base_app/common/widgets/app_button.dart';
 import 'package:base_app/config/inject/app_injector.dart';
@@ -156,7 +157,7 @@ class _ProfileViewState extends State<ProfileView> {
                                     ),
                                   ),
                                   subtitle: Text(
-                                    profile.phone,
+                                    profile.phone.phoneFormatter(),
                                     style: textTheme.bodyMedium,
                                   ),
                                   visualDensity: VisualDensity.comfortable,
