@@ -18,24 +18,4 @@ class LoginCubit extends Cubit<LoginState> {
       error: (error) => emit(const LoginError('Usuário ou senha inválidos.')),
     );
   }
-
-  LoginErrorType _mapErrorType(Exception error) {
-    final message = error.toString().toLowerCase();
-
-    if (message.contains('401') || message.contains('unauthorized')) {
-      return LoginErrorType.invalidCredentials;
-    }
-
-    if (message.contains('socketexception') ||
-        message.contains('connection error') ||
-        message.contains('network')) {
-      return LoginErrorType.noInternet;
-    }
-
-    if (message.contains('timeout')) {
-      return LoginErrorType.timeout;
-    }
-
-    return LoginErrorType.generic;
-  }
 }
