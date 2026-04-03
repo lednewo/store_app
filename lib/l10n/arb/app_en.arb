@@ -1,0 +1,238 @@
+{
+    "@@locale": "en",
+    "appTitle": "Base App",
+    "@appTitle": {
+        "description": "The application title"
+    },
+    "homeAppBarTitle": "Home",
+    "@homeAppBarTitle": {
+        "description": "Text shown in the AppBar of the Home Page"
+    },
+    "homeLoadedLabel": "Loaded",
+    "@homeLoadedLabel": {
+        "description": "Text shown when home data is loaded successfully"
+    },
+    "loginTitle": "Welcome back",
+    "@loginTitle": {
+        "description": "Main title shown on the login screen"
+    },
+    "loginSubtitle": "Enter your account details to continue.",
+    "@loginSubtitle": {
+        "description": "Support text shown below the login title"
+    },
+    "loginEmailLabel": "Email",
+    "@loginEmailLabel": {
+        "description": "Label for the login email field"
+    },
+    "loginPasswordLabel": "Password",
+    "@loginPasswordLabel": {
+        "description": "Label for the login password field"
+    },
+    "loginButton": "Sign in",
+    "@loginButton": {
+        "description": "Label for the login submit button"
+    },
+    "logoutButton": "Logout",
+    "@logoutButton": {
+        "description": "Label for the logout submit button"
+    },
+    "loginEmailRequiredMessage": "Enter your email.",
+    "@loginEmailRequiredMessage": {
+        "description": "Validation message for an empty email field"
+    },
+    "loginEmailInvalidMessage": "Enter a valid email.",
+    "@loginEmailInvalidMessage": {
+        "description": "Validation message for an invalid email"
+    },
+    "loginPasswordRequiredMessage": "Enter your password.",
+    "@loginPasswordRequiredMessage": {
+        "description": "Validation message for an empty password field"
+    },
+    "loginInvalidCredentialsMessage": "Invalid email or password.",
+    "@loginInvalidCredentialsMessage": {
+        "description": "Error shown when the user provides invalid credentials"
+    },
+    "loginRegisterLink": "Don't have an account? Sign up",
+    "@loginRegisterLink": {
+        "description": "Link at the bottom of the login screen to navigate to register"
+    },
+    "registerTitle": "Create account",
+    "@registerTitle": {
+        "description": "Main title shown on the register screen"
+    },
+    "registerSubtitle": "Fill in the details below to get started.",
+    "@registerSubtitle": {
+        "description": "Support text shown below the register title"
+    },
+    "registerNameLabel": "Full name",
+    "@registerNameLabel": {
+        "description": "Label for the name field on the register form"
+    },
+    "registerPhoneLabel": "Phone",
+    "@registerPhoneLabel": {
+        "description": "Label for the phone field on the register form"
+    },
+    "registerStreetLabel": "Street",
+    "@registerStreetLabel": {
+        "description": "Label for the street field on the register form"
+    },
+    "registerNumberLabel": "Number",
+    "@registerNumberLabel": {
+        "description": "Label for the street number field on the register form"
+    },
+    "productsTabLabel": "Products",
+    "addProductButton": "Add product",
+    "createProductTitle": "Create product",
+    "createProductNameLabel": "Name",
+    "createProductModelLabel": "Model",
+    "createProductBrandLabel": "Brand",
+    "createProductDescriptionLabel": "Description",
+    "createProductGenderLabel": "Gender",
+    "createProductAudienceLabel": "Audience",
+    "createProductPriceLabel": "Price",
+    "createProductStatusLabel": "Status",
+    "createProductSizesLabel": "Sizes (comma separated)",
+    "createProductColorsLabel": "Colors (comma separated)",
+    "createProductButton": "Create product",
+    "createProductSuccessMessage": "Product created successfully!",
+    "createProductNameRequiredMessage": "Enter the product name.",
+    "createProductModelRequiredMessage": "Enter the product model.",
+    "createProductBrandRequiredMessage": "Enter the product brand.",
+    "createProductDescriptionRequiredMessage": "Enter the product description.",
+    "createProductPriceRequiredMessage": "Enter the product price.",
+    "createProductPriceInvalidMessage": "Enter a valid price.",
+    "createProductSizesRequiredMessage": "Enter at least one size.",
+    "createProductSizesInvalidMessage": "Enter valid sizes (numbers).",
+    "createProductColorsRequiredMessage": "Enter at least one color.",
+    "registerNeighborhoodLabel": "Neighborhood",
+    "@registerNeighborhoodLabel": {
+        "description": "Label for the neighborhood field on the register form"
+    },
+    "registerZipCodeLabel": "ZIP code",
+    "@registerZipCodeLabel": {
+        "description": "Label for the ZIP code field on the register form"
+    },
+    "registerButton": "Create account",
+    "@registerButton": {
+        "description": "Label for the register submit button"
+    },
+    "registerNameRequiredMessage": "Enter your full name.",
+    "@registerNameRequiredMessage": {
+        "description": "Validation message for an empty name field"
+    },
+    "registerPhoneRequiredMessage": "Enter your phone number.",
+    "@registerPhoneRequiredMessage": {
+        "description": "Validation message for an empty phone field"
+    },
+    "registerStreetRequiredMessage": "Enter the street name.",
+    "@registerStreetRequiredMessage": {
+        "description": "Validation message for an empty street field"
+    },
+    "registerNumberRequiredMessage": "Enter the number.",
+    "@registerNumberRequiredMessage": {
+        "description": "Validation message for an empty street number field"
+    },
+    "registerNeighborhoodRequiredMessage": "Enter the neighborhood.",
+    "@registerNeighborhoodRequiredMessage": {
+        "description": "Validation message for an empty neighborhood field"
+    },
+    "registerZipCodeRequiredMessage": "Enter the ZIP code.",
+    "@registerZipCodeRequiredMessage": {
+        "description": "Validation message for an empty ZIP code field"
+    },
+    "registerLoginLink": "Already have an account? Sign in",
+    "@registerLoginLink": {
+        "description": "Link at the bottom of the register screen to navigate to login"
+    },
+    "genericErrorMessage": "An error occurred. Please try again.",
+    "@genericErrorMessage": {
+        "description": "Generic error message shown to the user"
+    },
+    "genericSuccessMessage": "Operation completed successfully!",
+    "@genericSuccessMessage": {
+        "description": "Generic success message shown to the user"
+    },
+    "retryButton": "Retry",
+    "@retryButton": {
+        "description": "Label for retry button"
+    },
+    "cancelButton": "Cancel",
+    "@cancelButton": {
+        "description": "Label for cancel button"
+    },
+    "okButton": "OK",
+    "@okButton": {
+        "description": "Label for OK button"
+    },
+    "backButton": "Back",
+    "@backButton": {
+        "description": "Label for back button"
+    },
+    "loadingMessage": "Loading...",
+    "@loadingMessage": {
+        "description": "Message shown while content is loading"
+    },
+    "noInternetMessage": "No internet connection.",
+    "@noInternetMessage": {
+        "description": "Message shown when there is no internet connection"
+    },
+    "timeoutMessage": "Connection timed out. Please try again.",
+    "@timeoutMessage": {
+        "description": "Message shown when a request times out"
+    },
+    "unauthorizedMessage": "Session expired. Please log in again.",
+    "@unauthorizedMessage": {
+        "description": "Message shown when the user session has expired"
+    },
+    "profileTitle": "My Profile",
+    "@profileTitle": {
+        "description": "Title shown in the AppBar of the Profile screen"
+    },
+    "profileNameLabel": "Full name",
+    "@profileNameLabel": {
+        "description": "Label for the name field on the profile screen"
+    },
+    "profileEmailLabel": "Email",
+    "@profileEmailLabel": {
+        "description": "Label for the email field on the profile screen"
+    },
+    "profilePhoneLabel": "Phone",
+    "@profilePhoneLabel": {
+        "description": "Label for the phone field on the profile screen"
+    },
+    "profileUserTypeLabel": "User type",
+    "@profileUserTypeLabel": {
+        "description": "Label for the user type field on the profile screen"
+    },
+    "profileAddressLabel": "Address",
+    "@profileAddressLabel": {
+        "description": "Label for the address field on the profile screen"
+    },
+    "profileInfoSectionLabel": "Information",
+    "@profileInfoSectionLabel": {
+        "description": "Section title for the profile information block"
+    },
+    "dashboardTitle": "Dashboard",
+    "@dashboardTitle": {
+        "description": "Title shown on the Dashboard tab"
+    },
+    "dashboardComingSoon": "Coming soon",
+    "@dashboardComingSoon": {
+        "description": "Placeholder text shown on the blank Dashboard tab"
+    },
+    "productsTabLabel": "Products",
+    "@productsTabLabel": {
+        "description": "Label for the products/home tab in the bottom navigation bar"
+    },
+    "addProductButton": "Add product",
+    "@addProductButton": {
+        "description": "Label for the FAB to add a product on the vendor profile tab"
+    },
+    "productDetailsTitle": "Product Details",
+    "productDetailsSizesLabel": "Available Sizes",
+    "productDetailsColorsLabel": "Available Colors",
+    "productDetailsInfoSectionLabel": "Product Information",
+    "productDetailsNoImages": "No images available",
+    "productDetailsImageCount": "{count} image(s)"
+
+}

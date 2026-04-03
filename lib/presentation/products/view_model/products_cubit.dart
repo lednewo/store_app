@@ -1,0 +1,54 @@
+import 'package:base_app/domain/dto/pagination_dto.dart';
+import 'package:base_app/domain/interfaces/products_repository.dart';
+import 'package:bloc/bloc.dart';
+import 'products_state.dart';
+
+class ProductsCubit extends Cubit<ProductsState> {
+  ProductsCubit({required ProductsRepository repository})
+    : _repository = repository,
+      super(const ProductsInitial());
+
+  final ProductsRepository _repository;
+
+  bool hasMore = false;
+  int totalPages = 0;
+  int currentPage = 0;
+
+  bool get canGoPrevius => currentPage > 0;
+  bool get canGoNext => currentPage + 1 < totalPages;
+
+  Future<void> fetchProducts(PaginationDto dto) async {
+    emit(const ProductsLoading());
+
+    final result = await _repository.getProducts(dto);
+
+    result.when(
+      ok: (success) {
+        hasMore =
+            success.data.length == dto.size && currentPage < totalPages - 1;
+        currentPage = dto.page;
+        totalPages = success.totalPages;
+
+        emit(ProductsSuccess(success));
+      },
+      error: (error) {
+        emit(ProductsError(error.toString()));
+      },
+    );
+  }
+
+  Future<void> getById(String id) async {
+    emit(const ProductsLoading());
+
+    final result = await _repository.getById(id);
+
+    result.when(
+      ok: (success) {
+        emit(ProductDetailsSuccess(success));
+      },
+      error: (error) {
+        emit(ProductsError(error.toString()));
+      },
+    );
+  }
+}
