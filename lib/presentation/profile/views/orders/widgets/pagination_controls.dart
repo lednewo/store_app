@@ -1,4 +1,3 @@
-import 'package:base_app/presentation/products/view_model/products_cubit.dart';
 import 'package:base_app/presentation/profile/views/orders/view_model/orders_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
