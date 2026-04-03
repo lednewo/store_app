@@ -185,7 +185,15 @@ class _ProductInfoViewState extends State<ProductInfoView> {
             if (state is ProductDetailsSuccess) {
               return ProductInfoContent(
                 product: state.product,
-                onEdit: () {},
+                onEdit: () async {
+                  final bool? result = await context.push<bool>(
+                    AppRoutes.createProduct,
+                    extra: state.product,
+                  );
+                  if (result == true) {
+                    _productsCubit.getById(widget.productId);
+                  }
+                },
                 onDelete: _showDeleteProduct,
                 onAddToCart: () => _showAddToCartSheet(state.product),
               );

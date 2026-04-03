@@ -19,4 +19,15 @@ class CreateProductCubit extends Cubit<CreateProductState> {
       error: (e) => emit(CreateProductError(e.toString())),
     );
   }
+
+  Future<void> updateProduct(ProductDto dto) async {
+    emit(const CreateProductLoading());
+
+    final result = await _productsRepository.updateProduct(dto);
+
+    result.when(
+      ok: (data) => emit(UpdateProductSuccess(data.message)),
+      error: (e) => emit(UpdateProductError(e.toString())),
+    );
+  }
 }

@@ -46,7 +46,7 @@ class _OrdersViewState extends State<OrdersView> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.ordersTitle),
+        title: Text(l10n.ordersLabel),
         centerTitle: true,
       ),
       body: SafeArea(

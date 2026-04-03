@@ -1,4 +1,5 @@
 import 'package:base_app/config/routes/app_routes.dart';
+import 'package:base_app/domain/entities/product_entity.dart';
 import 'package:base_app/presentation/auth/views/login_view.dart';
 import 'package:base_app/presentation/auth/views/register_view.dart';
 import 'package:base_app/presentation/base/view/main_shell_view.dart';
@@ -36,7 +37,10 @@ final GoRouter appRouter = GoRouter(
     ),
     GoRoute(
       path: AppRoutes.createProduct,
-      builder: (context, state) => const CreateProductView(),
+      builder: (context, state) {
+        final productEntity = state.extra as ProductEntity?;
+        return CreateProductView(productEntity: productEntity);
+      },
     ),
     GoRoute(
       path: AppRoutes.productDetails,

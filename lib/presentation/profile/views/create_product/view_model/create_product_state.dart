@@ -22,3 +22,13 @@ class CreateProductError extends CreateProductState {
   const CreateProductError(this.message);
   final String message;
 }
+
+class UpdateProductSuccess extends CreateProductState {
+  const UpdateProductSuccess(this.message);
+  final String message;
+}
+
+class UpdateProductError extends CreateProductState {
+  const UpdateProductError(this.message);
+  final String message;
+}

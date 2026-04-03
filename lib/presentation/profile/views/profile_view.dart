@@ -190,7 +190,9 @@ class _ProfileViewState extends State<ProfileView> {
                                       color: colorScheme.primary,
                                     ),
                                     title: Text(
-                                      l10n.ordersTitle,
+                                      LoginDetect.isVendedor
+                                          ? l10n.ordersLabel
+                                          : l10n.ordersTitle,
                                       style: textTheme.bodyMedium?.copyWith(
                                         fontWeight: FontWeight.w500,
                                       ),

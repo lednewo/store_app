@@ -82,8 +82,8 @@ class _ProductsViewState extends State<ProductsView> {
                 hintStyle: TextStyle(
                   color: Theme.of(context).colorScheme.shadow,
                 ),
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(),
+                prefixIcon: const Icon(Icons.search),
+                border: const OutlineInputBorder(),
               ),
             ),
           ),
