@@ -7,9 +7,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class ProductInfoContent extends StatelessWidget {
-  const ProductInfoContent({required this.product, super.key});
+  const ProductInfoContent({
+    required this.product,
+    super.key,
+    this.onEdit,
+    this.onDelete,
+  });
 
   final ProductEntity product;
+  final void Function()? onEdit;
+  final void Function()? onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +50,11 @@ class ProductInfoContent extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: _BottomAction(product: product),
+      bottomNavigationBar: _BottomAction(
+        product: product,
+        onEdit: onEdit,
+        onDelete: onDelete,
+      ),
     );
   }
 }
@@ -409,9 +420,11 @@ class _ColorSelectorState extends State<_ColorSelector> {
 // ─── Bottom action ────────────────────────────────────────────────────────────
 
 class _BottomAction extends StatelessWidget {
-  const _BottomAction({required this.product});
+  const _BottomAction({required this.product, this.onEdit, this.onDelete});
 
   final ProductEntity product;
+  final void Function()? onEdit;
+  final void Function()? onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -434,12 +447,28 @@ class _BottomAction extends StatelessWidget {
         valueListenable: LoginDetect.loginTypeNotifier,
         builder: (context, _, __) {
           if (LoginDetect.isVendedor) {
-            return AppButton(
-              label: 'Editar produto',
-              icon: Icons.edit_outlined,
-              variant: AppButtonVariant.secondary,
-              isFullWidth: true,
-              onTap: () {},
+            return Row(
+              children: [
+                Expanded(
+                  child: AppButton(
+                    label: 'Editar produto',
+                    icon: Icons.edit_outlined,
+                    variant: AppButtonVariant.secondary,
+                    isFullWidth: true,
+                    onTap: onEdit,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: AppButton(
+                    label: 'Excluir produto',
+                    icon: Icons.delete_outline,
+                    variant: AppButtonVariant.destructive,
+                    isFullWidth: true,
+                    onTap: onDelete,
+                  ),
+                ),
+              ],
             );
           }
           return AppButton(

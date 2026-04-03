@@ -9,40 +9,14 @@ class CreateProductCubit extends Cubit<CreateProductState> {
 
   final ProductsRepository _productsRepository;
 
-  Future<void> createProduct({
-    required String name,
-    required String model,
-    required String brand,
-    required String description,
-    required String gender,
-    required String audience,
-    required List<int> sizes,
-    required List<String> colors,
-    required double price,
-    required String status,
-    List<String>? urlImages,
-  }) async {
+  Future<void> createProduct(ProductDto dto) async {
     emit(const CreateProductLoading());
-
-    final dto = ProductDto(
-      name: name,
-      model: model,
-      brand: brand,
-      description: description,
-      gender: gender,
-      audience: audience,
-      sizes: sizes,
-      colors: colors,
-      price: price,
-      status: status,
-      urlImages: urlImages,
-    );
 
     final result = await _productsRepository.createProduct(dto);
 
     result.when(
       ok: (data) => emit(CreateProductSuccess(data.message)),
-      error: (e) => emit(CreateProductError('$e')),
+      error: (e) => emit(CreateProductError(e.toString())),
     );
   }
 }
