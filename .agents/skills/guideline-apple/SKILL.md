@@ -1,6 +1,6 @@
 ---
 name: guideline-apple
-description: Audits a Flutter app for compliance with Apple App Store Review Guidelines. Checks privacy keys (NSUsageDescription), ATT, Info.plist, SafeArea/notch handling, IAP for digital goods, age rating, accessibility, metadata accuracy, Kids Category rules, and HIG design basics. Use when the user asks to review, prepare or audit an app for App Store submission.
+description: Audits a Flutter app for compliance with Apple App Store Review Guidelines. Checks privacy keys (NSUsageDescription), ATT, Info.plist, SafeArea/notch handling, IAP for digital goods, age rating, accessibility, metadata accuracy, Kids Category rules, and HIG design basics. Use when the user asks to review, prepare or audit an app for App Store submission. Activate even when the user says 'my app was rejected by Apple', 'what do I need to submit to the App Store?', 'App Store review checklist', 'is my app ready for App Store?', 'Apple rejected my binary', 'NSUserTrackingUsageDescription is missing', or 'how to pass App Store review' without explicitly mentioning App Store Review Guidelines or HIG.
 ---
 
 # Apple App Store Guidelines — Compliance Audit
@@ -284,3 +284,7 @@ Ao final da auditoria, gerar um resumo executivo:
 - [App Privacy Details](https://developer.apple.com/app-store/app-privacy-details/)
 - [App Tracking Transparency](https://developer.apple.com/documentation/apptrackingtransparency)
 - [Privacy Manifest Files](https://developer.apple.com/documentation/bundleresources/privacy_manifest_files)
+
+---
+
+**Última atualização**: 28 de março de 2026

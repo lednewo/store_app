@@ -1,6 +1,6 @@
 ---
 name: implement-domain
-description: Implements the Flutter domain layer (Entities and Repository Interfaces) following Clean Architecture. Use whenever creating or modifying files in lib/domain/**. Covers @immutable Entities with copyWith/==/hashCode, Repository Interfaces with Result<T>, and anti-patterns to avoid.
+description: Implements the Flutter domain layer (Entities and Repository Interfaces) following Clean Architecture. Use whenever creating or modifying files in lib/domain/**, defining a new business concept, modeling a domain object, creating a contract between layers, or adding fields to an existing entity. Covers @immutable Entities with copyWith/==/hashCode, Repository Interfaces with Result<T>, and anti-patterns to avoid. Activate even when the user says "create a class for the user data", "add an entity", "model the product", or "define the contract for the repository" without explicitly mentioning domain layer or Clean Architecture.
 ---
 
 # Implement Domain Layer — Flutter
@@ -252,4 +252,4 @@ abstract class ProductRepository {
 
 ---
 
-**Última atualização**: 15 de janeiro de 2026
+**Última atualização**: 28 de março de 2026

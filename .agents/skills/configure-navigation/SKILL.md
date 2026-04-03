@@ -1,6 +1,6 @@
 ---
 name: configure-navigation
-description: Configures GoRouter navigation for Flutter following the project architecture. Use whenever adding routes, navigation guards, deep links, or modifying lib/config/routes/**. Covers AppRoutes constants, GoRoute setup, push/go/pop patterns, navigation from BlocListener, guards, and common mistakes.
+description: Configures GoRouter navigation for Flutter following the project architecture. Use whenever adding routes, navigation guards, deep links, or modifying lib/config/routes/**. Covers AppRoutes constants, GoRoute setup, push/go/pop patterns, navigation from BlocListener, guards, and common mistakes. Activate even when the user says 'add a new screen to the app routing', 'how do I navigate to another screen', 'how do I pass parameters between pages', 'back button not working', 'redirect to login if not authenticated', 'deep link is not working', or 'I need to add a route' without explicitly mentioning GoRouter or AppRoutes.
 ---
 
 # Configure Navigation — Flutter
@@ -278,4 +278,4 @@ final GoRouter appRouter = GoRouter(
 
 ---
 
-**Última atualização**: 15 de janeiro de 2026
+**Última atualização**: 28 de março de 2026

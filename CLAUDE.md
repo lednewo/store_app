@@ -35,7 +35,6 @@ Skills são capacidades especializadas. Leia o arquivo da skill **antes** de exe
 | `implement-data` | `.claude/skills/implement-data/SKILL.md` | Ao trabalhar em `lib/data/**` |
 | `configure-di` | `.claude/skills/configure-di/SKILL.md` | Ao trabalhar em `lib/config/inject/**` |
 | `configure-navigation` | `.claude/skills/configure-navigation/SKILL.md` | Ao trabalhar em `lib/config/routes/**` ou navegação |
-| `analyze-view` | `.claude/skills/analyze-view/SKILL.md` | Ao revisar, auditar ou refatorar arquivos de View |
 | `implement-in-app-purchase` | `.claude/skills/implement-in-app-purchase/SKILL.md` | Ao implementar compras in-app, assinaturas ou paywall |
 | `implement-admob` | `.claude/skills/implement-admob/SKILL.md` | Ao trabalhar com anúncios AdMob |
 | `custom-paint` | `.claude/skills/custom-paint/SKILL.md` | Ao desenhar formas, gráficos, animações canvas ou qualquer pintura 2D com CustomPaint/CustomPainter |
@@ -43,6 +42,7 @@ Skills são capacidades especializadas. Leia o arquivo da skill **antes** de exe
 | `implement-auth-token-flow` | `.claude/skills/implement-auth-token-flow/SKILL.md` | Ao implementar autenticação com Bearer token, login, refresh token ou logout |
 | `implement-firebase-notifications` | `.claude/skills/implement-firebase-notifications/SKILL.md` | Ao implementar ou auditar push notifications via Firebase Cloud Messaging (iOS + Android) |
 | `flutter-isolates` | `.claude/skills/flutter-isolates/SKILL.md` | Ao trabalhar com paralelismo, concorrência, performance de UI, jank ou tarefas CPU-intensivas — compute(), Isolate.spawn, Isolate.run, SendPort, ReceivePort |
+| `flutter-animating-apps` | `.claude/skills/flutter-animating-apps/SKILL.md` | Ao implementar animações visuais, efeitos, transições de tela, hero animations, animações implícitas/explícitas ou physics-based animations |
 
 ---
 

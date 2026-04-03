@@ -1,11 +1,24 @@
 ---
 name: implement-in-app-purchase
-description: Implements In-App Purchase (consumable, non-consumable, or subscription) following the project architecture. Asks whether there is a backend server, then generates the complete implementation: InAppPurchaseService, Cubit, State, View, DI registration, and purchase verification flow (local storage via StorageService OR backend endpoint call). Use whenever the user asks to add purchases or subscriptions to the app.
+description: Implements In-App Purchase (consumable, non-consumable, or subscription) following the project architecture. Asks whether there is a backend server, then generates the complete implementation: InAppPurchaseService, Cubit, State, View, DI registration, and purchase verification flow (local storage via StorageService OR backend endpoint call). Use whenever adding purchases, subscriptions, paywall, or premium features to the app, integrating App Store or Google Play billing, verifying receipts, or restoring purchases. Activate even when the user says 'make the app paid', 'add a paywall', 'implement premium', 'add a subscription plan', 'unlock premium features', 'add a pro version', or 'monetize the app' without explicitly mentioning InAppPurchase, StoreKit, or Google Play Billing.
 ---
 
 # Implement In-App Purchase — Flutter
 
 Implementa o fluxo completo de In-App Purchase seguindo a arquitetura do projeto.
+
+## Leitura Rápida
+
+- **Primeiro passo obrigatório**: faça TODAS as perguntas ao usuário (Passo 1) antes de gerar qualquer código.
+- **Modo sem back-end**: `InAppPurchaseService` + `StorageService` — sem Repository ou DataSource.
+- **Modo com back-end**: adiciona Entity + Repository Interface + Model + DataSource + RepositoryImpl.
+- **Verificação**: `completePurchase()` NUNCA é chamado antes da verificação — local ou server-side.
+- **Stream**: o resultado da compra SEMPRE vem pelo `purchaseStream` — nunca emita `PurchaseSuccess` direto no `buyProduct()`.
+- **Cubit**: cancele `_purchaseSubscription` no `close()` — nunca deixe o stream vazar.
+- **Apple Guideline 3.1.2(c)**: telas de paywall com assinatura DEVEM exibir links de Termos de Uso e Política de Privacidade.
+- **Segurança**: nunca confie apenas na validação client-side para desbloquear conteúdo premium.
+
+---
 
 ## Passo 1 — Perguntas obrigatórias ao usuário
 
@@ -361,3 +374,7 @@ Após gerar o código-esqueleto, lembre o usuário de substituir os placeholders
 - ❌ NÃO use `SharedPreferences` diretamente — use sempre `StorageService`
 - ❌ NÃO salve `serverVerificationData` localmente — use apenas `localVerificationData`
 - ❌ NÃO desbloqueie conteúdo premium sem verificar o receipt (local ou server-side)
+
+---
+
+**Última atualização**: 28 de março de 2026

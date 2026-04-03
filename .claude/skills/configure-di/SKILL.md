@@ -1,6 +1,6 @@
 ---
 name: configure-di
-description: Configures dependency injection (GetIt) for Flutter following the project architecture. Use whenever adding or modifying registrations in lib/config/inject/**. Covers registerFactory vs registerLazySingleton, registration order, multi-flavor setup, and common mistakes.
+description: Configures dependency injection (GetIt) for Flutter following the project architecture. Use whenever adding or modifying registrations in lib/config/inject/**. Covers registerFactory vs registerLazySingleton, registration order, multi-flavor setup, and common mistakes. Activate even when the user says 'register this class in the injector', 'how do I inject this dependency', 'GetIt is throwing an error', 'add this to AppInjector', 'should this be a singleton or factory?', 'I created a new service, where do I register it?', or 'dependency not found' without explicitly mentioning GetIt or registerLazySingleton.
 ---
 
 # Configure DI (Dependency Injection) — Flutter
@@ -229,4 +229,4 @@ void main() {
 
 ---
 
-**Última atualização**: 15 de janeiro de 2026
+**Última atualização**: 28 de março de 2026

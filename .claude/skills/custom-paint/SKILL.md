@@ -1,6 +1,6 @@
 ---
 name: custom-paint
-description: "Implements Flutter CustomPaint and CustomPainter for drawing 2D graphics on canvas. Use when: the user asks to draw shapes, arcs, paths, gradients, charts, progress indicators, wave animations, custom clipping, or any pixel-level painting on screen. Also covers shouldRepaint optimization, RepaintBoundary, AnimationController integration with CustomPainter, blend modes, canvas transformations, Path operations, image rendering, shadows, SVG path conversion, and canvas hit testing. DO NOT USE FOR: standard widget composition (Row, Stack, Container), image loading/caching, or SVG rendering via flutter_svg."
+description: "Implements Flutter CustomPaint and CustomPainter for drawing 2D graphics on canvas. Use when: the user asks to draw shapes, arcs, paths, gradients, charts, progress indicators, wave animations, custom clipping, or any pixel-level painting on screen. Also covers shouldRepaint optimization, RepaintBoundary, AnimationController integration with CustomPainter, blend modes, canvas transformations, Path operations, image rendering, shadows, SVG path conversion, and canvas hit testing. DO NOT USE FOR: standard widget composition (Row, Stack, Container), image loading/caching, or SVG rendering via flutter_svg. Activate even when the user says 'draw a custom shape', 'create a chart widget', 'animated wave background', 'progress ring', 'gauge meter', 'clip image in a custom shape', or 'pixel-perfect custom design' without explicitly mentioning CustomPaint or CustomPainter."
 argument-hint: "Describe what you want to draw (e.g. animated wave, donut chart, custom progress bar, gauge, particle system)"
 ---
 
@@ -1645,3 +1645,8 @@ Antes de concluir a implementação:
 - [Definitive Flutter Painting Guide](https://getstream.io/blog/definitive-flutter-painting-guide/)
 - [SVG to Flutter Path](https://www.flutterclutter.dev/flutter/tutorials/svg-to-flutter-path/2020/678/)
 - [Very Good Ventures — Mastering CustomPainter](https://verygood.ventures/blog/mastering-custompainter-in-flutter-from-svgs-to-racetracks/)
+
+
+---
+
+**Última atualização**: 28 de março de 2026

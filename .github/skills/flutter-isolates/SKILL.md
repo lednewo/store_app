@@ -1,6 +1,6 @@
 ---
 name: flutter-isolates
-description: Guia especializado em Isolates no Flutter. Use este skill sempre que o usuário perguntar sobre paralelismo, concorrência, performance de UI, jank, tarefas pesadas em Flutter, ou mencionar qualquer uma das APIs — compute(), Isolate.spawn, Isolate.run, SendPort, ReceivePort. Também deve ser ativado quando o usuário perguntar se deve usar Isolate para determinada tarefa — o skill inclui critérios claros de decisão. Ative mesmo que o usuário não mencione Isolate explicitamente, mas descreva um problema de performance ou travamento de UI em Flutter.
+description: Guia especializado em Isolates no Flutter. Use este skill sempre que o usuário perguntar sobre paralelismo, concorrência, performance de UI, jank, tarefas pesadas em Flutter, ou mencionar qualquer uma das APIs — compute(), Isolate.spawn, Isolate.run, SendPort, ReceivePort. Também deve ser ativado quando o usuário perguntar se deve usar Isolate para determinada tarefa — o skill inclui critérios claros de decisão. Ative mesmo que o usuário não mencione Isolate explicitamente, mas descreva um problema de performance ou travamento de UI em Flutter. Activate even when the user says 'the UI is freezing while processing data', 'the app lags during heavy computation', 'parsing large JSON is blocking the thread', 'how to run this without blocking the UI', or 'the scroll is janky during data processing' without explicitly mentioning Isolate or compute().
 ---
 
 # Flutter Isolates — Skill Especializado
@@ -249,3 +249,8 @@ class ProcessamentoService {
 - [ ] Se justifica, indicar qual API é mais adequada (seção 2)
 - [ ] Mencionar limitações relevantes para o contexto (seção 3)
 - [ ] Código de exemplo com função top-level ou static quando usar `compute()`
+
+
+---
+
+**Última atualização**: 28 de março de 2026

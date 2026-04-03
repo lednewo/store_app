@@ -1,23 +1,23 @@
 ---
 name: implement-auth-token-flow
-description: Implements the complete Bearer token authentication flow following the project architecture. Covers login → save token, automatic token injection via AuthInterceptor, refresh token before expiration, and redirect to login on 401 (expired token). Generates AuthService, AuthRepository, Login feature (Cubit/State/View), token refresh interceptor, and DI registration. Use whenever the user asks to add authentication, login, or token management to the app.
+description: Implements the complete Bearer token authentication flow following the project architecture. Covers login → save token, automatic token injection via AuthInterceptor, refresh token before expiration, and redirect to login on 401 (expired token). Generates AuthService, AuthRepository, Login feature (Cubit/State/View), token refresh interceptor, and DI registration. Use whenever the user asks to add authentication, login, token management, user sessions, protected routes, or auto-login to the app. Activate even when the user says 'protect this screen', 'user needs to be logged in', 'handle expired session', 'add JWT auth', 'redirect to login when token expires', 'remember me', or 'keep user logged in' without explicitly mentioning Bearer token or AuthInterceptor.
 ---
 
 # Implement Auth Token Flow — Flutter
 
 Implementa o fluxo completo de autenticação com Bearer token seguindo a arquitetura do projeto.
 
-## Antes de começar
+## Leitura Rápida
 
-Leia as instruções relevantes:
-
-- `.github/instructions/architecture.instructions.md`
-- `.github/instructions/view.instructions.md`
-- `.github/instructions/view_model.instructions.md`
-- `.github/instructions/data.instructions.md`
-- `.github/instructions/domain.instructions.md`
-- `.github/instructions/di.instructions.md`
-- `.github/instructions/navigation.instructions.md`
+- **Primeiro passo obrigatório**: faça TODAS as perguntas ao usuário (Passo 1) antes de gerar qualquer código.
+- **AuthService**: gerencia tokens no `StorageService` — NUNCA faz chamadas HTTP; chaves fixas: `auth_token`, `refresh_token`, `token_expires_at`.
+- **TokenRefreshInterceptor**: usa um `Dio` separado (sem interceptors) para o refresh — isso evita loop infinito.
+- **Flag `_isRefreshing`**: evita múltiplos refreshes simultâneos — verifique antes de iniciar qualquer refresh.
+- **Rotas públicas**: o interceptor ignora `/auth/login`, `/auth/refresh`, etc. — nunca tente refresh nessas rotas.
+- **Splash**: sempre verifique `authService.isAuthenticated()` no início e redirecione para Home ou Login.
+- **Navegação**: SEMPRE via `appRouter.go()` no interceptor — nunca receba `BuildContext` fora da View.
+- **Ordem de DI**: `StorageService` → `AuthService` → `Dio` → `HttpService` → DataSources → Repos → Cubits.
+- **Segurança**: NUNCA armazene a senha do usuário; NUNCA logue tokens em produção; use HTTPS.
 
 ---
 
@@ -1073,3 +1073,7 @@ class TokenExpirationInterceptor extends Interceptor {
 - ❌ NÃO faça múltiplos refreshes simultâneos — use flag `_isRefreshing`
 - ❌ NÃO tente refresh em rotas públicas (login, register)
 - ❌ NÃO desbloqueie funcionalidades protegidas sem validar o token primeiro
+
+---
+
+**Última atualização**: 28 de março de 2026

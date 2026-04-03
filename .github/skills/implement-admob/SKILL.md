@@ -1,6 +1,6 @@
 ---
 name: implement-admob
-description: Implements Google AdMob ads (banner, native, interstitial) in Flutter following the project architecture. Use whenever adding or modifying ad-related files. Covers AdConfig centralized IDs, AdService SDK init, InterstitialAdService lifecycle, AdBannerWidget, AdNativeWidget, DI registration, and anti-patterns.
+description: Implements Google AdMob ads (banner, native, interstitial) in Flutter following the project architecture. Use whenever adding or modifying ad-related files, integrating the AdMob SDK, adding monetization via ads, creating banner or native ad widgets, managing interstitial ad lifecycle, or centralizing ad unit IDs. Covers AdConfig centralized IDs, AdService SDK init, InterstitialAdService lifecycle, AdBannerWidget, AdNativeWidget, DI registration, and anti-patterns. Activate even when the user says 'add ads to my app', 'show a banner ad', 'monetize with AdMob', 'integrate Google ads', 'show a native ad', or 'display an interstitial' without explicitly mentioning AdConfig or AdService.
 ---
 
 # Implement AdMob — Flutter
@@ -445,4 +445,4 @@ void dispose() {
 
 ---
 
-**Última atualização**: 8 de março de 2026
+**Última atualização**: 28 de março de 2026

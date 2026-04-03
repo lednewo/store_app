@@ -1,18 +1,21 @@
 ---
 name: implement-firebase-notifications
-description: "Implements or audits Firebase Cloud Messaging (FCM) push notifications for Flutter (iOS + Android). Covers: NotificationService, APNs token relay, Info.plist, Runner.entitlements, AndroidManifest, background handler, DI registration, permission request, foreground display, topic subscription, and Firebase Console APNs key upload. Use when: implementing push notifications, debugging notifications not arriving on iOS/Android, auditing notification setup, or adding FCM topic subscriptions."
+description: Implements or audits Firebase Cloud Messaging (FCM) push notifications for Flutter (iOS + Android). Covers NotificationService, APNs token relay, Info.plist, Runner.entitlements, AndroidManifest, background handler, DI registration, permission request, foreground display, topic subscription, and Firebase Console APNs key upload. Use when implementing push notifications, debugging notifications not arriving on iOS/Android, auditing notification setup, or adding FCM topic subscriptions. Activate even when the user says 'notifications are not working', 'push not arriving on iPhone', 'FCM token is null', 'set up Firebase Messaging', 'silent push notifications', 'send a notification to all users', 'notify users when something happens', or 'background notifications' without explicitly mentioning FCM, APNs, or firebase_messaging.
 ---
 
 # Implement Firebase Notifications — Flutter
 
 Implementa ou audita o fluxo completo de push notifications via Firebase Cloud Messaging (FCM) seguindo a arquitetura do projeto.
 
-## Antes de começar
+## Leitura Rápida
 
-Leia as instruções relevantes:
-
-- `.github/instructions/architecture.instructions.md`
-- `.github/instructions/di.instructions.md`
+- **Causa #1 de falha no iOS**: `FirebaseAppDelegateProxyEnabled = false` no Info.plist — **REMOVA** a chave se existir. Com o default (`true`), o Firebase faz swizzling automático do token APNs.
+- **AppDelegate**: quando o swizzling está ativo (default), o AppDelegate fica mínimo — sem `registerForRemoteNotifications` manual nem delegates de UNUserNotificationCenter.
+- **Background handler**: obrigatório `@pragma('vm:entry-point')` para sobreviver ao tree-shaking em release; obrigatório `await Firebase.initializeApp()` no início.
+- **Simulador iOS**: APNs não funciona em simulador — use sempre device físico para testar.
+- **FCM token null**: no iOS, causado por APNs key não configurada no Firebase Console ou por `FirebaseAppDelegateProxyEnabled = false`.
+- **DI**: `FirebaseMessaging.instance` e `NotificationService` → `registerLazySingleton`. Inicialize no `AppInitializer` após `setupDependencies`.
+- **Checklist antes do código**: verifique TODOS os itens do Passo 2 — código correto não funciona se a configuração de plataforma estiver errada.
 
 ---
 
@@ -409,3 +412,7 @@ dependencies:
 6. **Testar push apenas com simulador iOS**
    - Resultado: simulador não suporta APNs → token nunca é gerado
    - Solução: testar sempre em device físico (ou via TestFlight)
+
+---
+
+**Última atualização**: 28 de março de 2026

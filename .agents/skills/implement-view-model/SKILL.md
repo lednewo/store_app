@@ -1,6 +1,6 @@
 ---
 name: implement-view-model
-description: Implements Flutter Cubit and State (View Model layer) following the project architecture. Use whenever creating or modifying a Cubit or State class. Covers sealed States, async patterns with Result<T>, CRUD Cubits, debounce, navigation states and common mistakes.
+description: Implements Flutter Cubit and State (View Model layer) following the project architecture. Use whenever creating or modifying a Cubit or State class, adding an async method to a Cubit, handling form submission or validation, implementing debounce search, managing loading/error/navigation states, or wiring a Cubit to a Repository or StorageService. Covers sealed States, async patterns with Result<T>, CRUD Cubits, local persistence via StorageService, navigation states, debounce, and common mistakes. Activate even when the user says "add a method", "handle the loading state", or "save locally" without explicitly mentioning Cubit or BLoC.
 ---
 
 # Implement View Model (Cubit e State) — Flutter
@@ -12,6 +12,7 @@ description: Implements Flutter Cubit and State (View Model layer) following the
 - **Quando escrever um método async no Cubit**: SEMPRE emita `Loading` primeiro → chame o repository → use `result.when()`.
 - **Quando emitir erro**: converta a exceção técnica em mensagem amigável ao usuário.
 - **Quando o Cubit precisar navegar**: emita um estado de navegação (`XNavigateToY`) e deixe a View reagir via `BlocListener`.
+- **Quando persistir dados localmente** (preferências, cache, flags): injete `StorageService` diretamente no Cubit — sem Repository, sem DataSource.
 
 ---
 
@@ -146,27 +147,59 @@ class PostsError extends PostsState {
 
 ## Criando Cubits
 
-### Opção A: Cubit Simples (Sem Repository)
+### Opção A: Cubit apenas UI / mock (sem fonte de dados)
+
+Use quando a tela tem apenas estado de UI local (ex: tabs, toggles, contadores simples) ou para desenvolvimento com dados mockados. Não há `Result<T>` aqui porque não há chamada assíncrona real.
 
 ```dart
 import 'package:base_app/presentation/<feature>/view_model/<feature>_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ProfileCubit extends Cubit<ProfileState> {
-  ProfileCubit() : super(const ProfileInitial());
+class CounterCubit extends Cubit<CounterState> {
+  CounterCubit() : super(const CounterInitial());
 
-  Future<void> loadProfile() async {
-    emit(const ProfileLoading());
+  void increment(int current) => emit(CounterLoaded(count: current + 1));
+  void decrement(int current) => emit(CounterLoaded(count: current - 1));
+}
+```
+
+### Opção A2: Cubit com StorageService (dados locais)
+
+Use quando precisar persistir dados localmente (preferências, cache, flags de onboarding) **sem** API externa. Injete `StorageService` diretamente — sem Repository.
+
+```dart
+import 'package:base_app/common/services/storage_service.dart';
+import 'package:base_app/presentation/settings/view_model/settings_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+class SettingsCubit extends Cubit<SettingsState> {
+  SettingsCubit(this._storage) : super(const SettingsInitial());
+
+  final StorageService _storage;
+
+  Future<void> loadSettings() async {
+    emit(const SettingsLoading());
     try {
-      emit(const ProfileLoaded(name: 'Nome', email: 'email@example.com'));
+      final theme = await _storage.getString('theme') ?? 'light';
+      emit(SettingsLoaded(theme: theme));
     } catch (e) {
-      emit(ProfileError('Erro ao carregar: $e'));
+      emit(SettingsError('Erro ao carregar configurações: $e'));
     }
+  }
+
+  Future<void> saveTheme(String theme) async {
+    await _storage.setString('theme', theme);
+    emit(SettingsLoaded(theme: theme));
   }
 }
 ```
 
-### Opção B: Cubit com Repository (API/DB)
+**Registro no DI:**
+```dart
+inject.registerFactory<SettingsCubit>(() => SettingsCubit(inject()));
+```
+
+### Opção B: Cubit com Repository (API / banco de dados externo)
 
 ```dart
 import 'package:base_app/domain/interfaces/<feature>_repository.dart';
@@ -235,10 +268,19 @@ class ProductsCubit extends Cubit<ProductsState> {
 1. **Sempre herda de Cubit** — `class XCubit extends Cubit<XState>`
 2. **Estado inicial no construtor** — `: super(const XInitial())`
 3. **Sempre emite Loading antes de operações assíncronas**
-4. **Usa `result.when()`** para tratar `Result<T>`
+4. **Usa `result.when()`** para tratar `Result<T>` vindo de um Repository
 5. **Converte erros técnicos em mensagens amigáveis**
 6. **NUNCA acessa DataSources diretamente** — use Repository
 7. **NUNCA contém lógica de UI** (cores, tamanhos, etc.)
+8. **Dados locais**: injete `StorageService` diretamente — sem Repository
+
+### Tabela de decisão: qual dependência injetar?
+
+| Cenário | Dependência no Cubit |
+|---|---|
+| Apenas estado de UI local / mock | Nenhuma |
+| Persistência local (prefs, cache, flags) | `StorageService` |
+| API REST / banco de dados externo | `XRepository` (interface do domínio) |
 
 ### ✅ result.when() vs switch — qual usar?
 
@@ -343,13 +385,16 @@ BlocListener<LoginCubit, LoginState>(
 ### Cubit:
 - [ ] Arquivo em `lib/presentation/<feature>/view_model/<feature>_cubit.dart`
 - [ ] Extende `Cubit<XState>`, estado inicial no construtor
-- [ ] Repository via construtor (não DataSource)
+- [ ] Dependência correta: `StorageService` (local) ou `XRepository` (API) — nunca DataSource
 - [ ] Emite Loading antes de async
-- [ ] Usa `result.when()` para tratar `Result<T>`
+- [ ] Usa `result.when()` para tratar `Result<T>` de Repository; `try/catch` para `StorageService`
 
 ### Registro no DI:
 ```dart
+// Com Repository:
 inject.registerFactory<LoginCubit>(() => LoginCubit(inject()));
+// Com StorageService:
+inject.registerFactory<SettingsCubit>(() => SettingsCubit(inject()));
 ```
 
 ---
@@ -367,4 +412,4 @@ inject.registerFactory<LoginCubit>(() => LoginCubit(inject()));
 
 ---
 
-**Última atualização**: 15 de janeiro de 2026
+**Última atualização**: 28 de março de 2026

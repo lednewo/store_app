@@ -37,14 +37,28 @@ git clone --depth 1 --branch "$SOURCE_BRANCH" "$SOURCE_REPO" "$TMP_DIR" --quiet
 
 # ── Arquivos raiz ──────────────────────────────────────────
 echo "📄 Sincronizando arquivos raiz..."
-cp "$TMP_DIR/AGENTS.md" "$SCRIPT_DIR/AGENTS.md"
-cp "$TMP_DIR/CLAUDE.md" "$SCRIPT_DIR/CLAUDE.md"
+if [ ! -f "$SCRIPT_DIR/AGENTS.md" ]; then
+  cp "$TMP_DIR/AGENTS.md" "$SCRIPT_DIR/AGENTS.md"
+  echo "  ✅ AGENTS.md criado."
+else
+  echo "  ⏭️  AGENTS.md já existe. Pulando (rode setup-project-context para personalizar)."
+fi
+if [ ! -f "$SCRIPT_DIR/CLAUDE.md" ]; then
+  cp "$TMP_DIR/CLAUDE.md" "$SCRIPT_DIR/CLAUDE.md"
+  echo "  ✅ CLAUDE.md criado."
+else
+  echo "  ⏭️  CLAUDE.md já existe. Pulando (rode setup-project-context para personalizar)."
+fi
 
 # ── .github/copilot-instructions.md ───────────────────────
 if [ -f "$TMP_DIR/.github/copilot-instructions.md" ]; then
-  echo "📄 Sincronizando copilot-instructions.md..."
   mkdir -p "$SCRIPT_DIR/.github"
-  cp "$TMP_DIR/.github/copilot-instructions.md" "$SCRIPT_DIR/.github/copilot-instructions.md"
+  if [ ! -f "$SCRIPT_DIR/.github/copilot-instructions.md" ]; then
+    echo "📄 Criando copilot-instructions.md..."
+    cp "$TMP_DIR/.github/copilot-instructions.md" "$SCRIPT_DIR/.github/copilot-instructions.md"
+  else
+    echo "  ⏭️  .github/copilot-instructions.md já existe. Pulando (rode setup-project-context para personalizar)."
+  fi
 else
   echo "⏭️  .github/copilot-instructions.md não encontrado no repositório fonte. Pulando."
 fi
@@ -123,8 +137,13 @@ echo ""
 echo "✅ Instruções sincronizadas com sucesso!"
 echo ""
 echo "Arquivos atualizados:"
-echo "  • AGENTS.md"
-echo "  • CLAUDE.md"
+echo "  • skills, instructions, prompts  (sempre sincronizados)"
+echo "  • AGENTS.md / CLAUDE.md          (criados apenas se não existiam)"
+echo "  • .github/copilot-instructions.md (criado apenas se não existia)"
+echo ""
+echo "💡 Para personalizar CLAUDE.md, AGENTS.md e copilot-instructions.md com conteúdo"
+echo "   específico deste projeto, abra o Copilot Chat e execute:"
+echo "   #file:.github/prompts/setup-project-context.prompt.md"
 
 if [ -d "$SCRIPT_DIR/.github/prompts" ]; then
   echo "  • .github/prompts/       ($(ls "$SCRIPT_DIR/.github/prompts/" 2>/dev/null | wc -l | tr -d ' ') arquivos)"

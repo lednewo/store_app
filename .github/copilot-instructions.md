@@ -43,6 +43,7 @@ Ficam em `.github/skills/<skill-name>/SKILL.md` e seguem o padrão aberto [agent
 | `implement-auth-token-flow` | [`SKILL.md`](skills/implement-auth-token-flow/SKILL.md) | Ao implementar autenticação com Bearer token — login, salvar token, refresh proativo, expiração, redirecionamento ao login e logout |
 | `implement-firebase-notifications` | [`SKILL.md`](skills/implement-firebase-notifications/SKILL.md) | Ao implementar ou auditar push notifications via Firebase Cloud Messaging — cobre iOS (APNs, entitlements, AppDelegate) e Android (manifest, canal), NotificationService, DI e diagnóstico |
 | `flutter-isolates` | [`SKILL.md`](skills/flutter-isolates/SKILL.md) | Ao trabalhar com paralelismo, concorrência, performance de UI, jank ou tarefas CPU-intensivas — cobre compute(), Isolate.spawn, Isolate.run, SendPort, ReceivePort e critérios de decisão |
+| `flutter-animating-apps` | [`SKILL.md`](skills/flutter-animating-apps/SKILL.md) | Ao implementar animações visuais, efeitos, transições de tela, hero animations, animações implícitas/explícitas ou physics-based animations |
 
 ---
 

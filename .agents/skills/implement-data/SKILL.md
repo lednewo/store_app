@@ -1,6 +1,6 @@
 ---
 name: implement-data
-description: Implements the Flutter data layer (Models, DataSources, Repository Implementations) following Clean Architecture. Use whenever creating or modifying files in lib/data/**. Covers Models extending Entity, DataSources returning raw data, and RepositoryImpl with try/catch and Result<T>.
+description: Implements the Flutter data layer (Models, DataSources, Repository Implementations) following Clean Architecture. Use whenever creating or modifying files in lib/data/**, implementing an API call, serializing/deserializing JSON, adding a local cache, creating a Repository implementation, or connecting a DataSource to a Repository. Covers Models extending Entity, DataSources returning raw data, and RepositoryImpl with try/catch and Result<T>. Activate even when the user says "call the API", "save to cache", "implement the repository", "parse the JSON response", or "add a data source" without explicitly mentioning Clean Architecture or data layer.
 ---
 
 # Implement Data Layer — Flutter
@@ -331,4 +331,4 @@ Future<Result<UserEntity>> getUserById(String id) async {
 
 ---
 
-**Última atualização**: 15 de janeiro de 2026
+**Última atualização**: 28 de março de 2026

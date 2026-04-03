@@ -1,6 +1,6 @@
 ---
 name: implement-widget
-description: Implements Flutter reusable widgets following the project architecture. Use whenever creating or modifying widgets in presentation/<feature>/widgets/ or common/widgets/. Covers StatelessWidget vs StatefulWidget decision, Entity as parameter, i18n, dispose, and componentization rules.
+description: Implements Flutter reusable widgets following the project architecture. Use whenever creating or modifying widgets in presentation/<feature>/widgets/, presentation/<feature>/content/, or common/widgets/. Covers StatelessWidget vs StatefulWidget decision, Entity as parameter, i18n, dispose, componentization rules, and when to access the Cubit via context.read. Activate even when the user says 'extract this to a widget', 'create a list item widget', 'build a reusable card', 'factor out this UI block', 'create a component for this', or 'this View is getting too big' without explicitly mentioning StatelessWidget or reusable components.
 ---
 
 # Implement Widget — Flutter
@@ -13,31 +13,37 @@ description: Implements Flutter reusable widgets following the project architect
 - **Quando definir parâmetros**: prefira passar a Entity completa em vez de campos individuais.
 - **Quando adicionar texto visível**: SEMPRE use `context.l10n` — nunca string hardcoded.
 - **Quando tiver controllers/timers**: SEMPRE faça `dispose()` deles.
-- **REGRA DE PERFORMANCE**: métodos privados `Widget _buildXxx()` NUNCA devem existir dentro da View — extraia-os como classes Widget em `widgets/`.
-
 ---
 
-## Estrutura de Widgets
+## Onde colocar o widget
 
 ```
 lib/
 ├── presentation/<feature>/
-│   └── widgets/                    # Widgets PRIVADOS da feature
-│       ├── <feature>_card.dart
-│       ├── <feature>_list_item.dart
-│       └── <feature>_form.dart
+│   ├── widgets/                    # Widgets REUTILIZÁVEIS da feature
+│   │   ├── <feature>_card.dart
+│   │   ├── <feature>_list_item.dart
+│   │   └── <feature>_form.dart
+│   └── content/                    # Auxiliares de UI ESPECÍFICOS de uma View (não reutilizáveis)
+│       └── <feature>_content.dart
 │
 └── common/
-    └── widgets/                    # Widgets COMPARTILHADOS
+    └── widgets/                    # Widgets COMPARTILHADOS entre features
         ├── app_button.dart
         ├── app_input.dart
         └── app_card.dart
 ```
 
-**Regras:**
-- **Widgets privados** (`presentation/<feature>/widgets/`): usados apenas naquela feature
-- **Widgets compartilhados** (`common/widgets/`): usados em múltiplas features
-- **Comece sempre com widgets privados**; mova para `common/` apenas quando reutilizar
+| Critério | `widgets/` | `content/` | `common/widgets/` |
+|---|---|---|---|
+| Reutilizável dentro da feature? | ✅ Sim | ❌ Não | — |
+| Usado em várias features? | ❌ Não | ❌ Não | ✅ Sim |
+| Auxiliar específico de uma View? | ❌ Não | ✅ Sim | ❌ Não |
+| Exemplo | `ProfileCard`, `HomeItemList` | `RecursosContent`, `HomeEmptySection` | `AppButton`, `AppCard` |
+
+**Regra:** comece sempre em `widgets/`; mova para `content/` se for específico demais para uma única View, para `common/widgets/` apenas quando outra feature precisar.
+
+> Para entender **por que** não usar `Widget _buildXxx()` na View, ver skill `implement-view`.
 
 ---
 
@@ -194,7 +200,7 @@ class ProductListItem extends StatelessWidget {
   const ProductListItem({
     required this.product,
     required this.onTap,
-    super.key,
+    super.key,  // Sempre repasse a key — permite ao Flutter reconciliar corretamente em listas
   });
 
   final ProductEntity product;
@@ -222,6 +228,7 @@ ListView.builder(
   itemBuilder: (context, index) {
     final product = state.products[index];
     return ProductListItem(
+      key: ValueKey(product.id), // ✅ Use ValueKey com ID único em listas dinâmicas
       product: product,
       onTap: () => _cubit.selectProduct(product),
     );
@@ -266,6 +273,39 @@ class ItemCard extends StatelessWidget {
 
 ---
 
+## Acessando o Cubit de dentro de um Widget
+
+Widgets em `content/` são específicos de uma View e podem chamar métodos do Cubit via `context.read<>()` — desde que a View envolva o subtree com `BlocProvider.value`. Isso evita a necessidade de repassar callbacks em cadeia.
+
+```dart
+// lib/presentation/profile/content/profile_save_bar.dart
+class ProfileSaveBar extends StatelessWidget {
+  const ProfileSaveBar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: ElevatedButton(
+        // ✅ context.read — não causa rebuild; só despacha a ação
+        onPressed: () => context.read<ProfileCubit>().saveProfile(),
+        child: Text(context.l10n.saveButton),
+      ),
+    );
+  }
+}
+```
+
+> Widgets em `widgets/` devem ser genéricos e reutilizáveis: **prefira receber callbacks** como parâmetros em vez de acessar o Cubit diretamente. Reserve `context.read<>()` para widgets em `content/`.
+
+| Local | Acessa Cubit via context.read? | Recebe callback como parâmetro? |
+|---|---|---|
+| `widgets/` (reutilizável) | ❌ Não — acoplaria o widget ao Cubit | ✅ Sim |
+| `content/` (específico da View) | ✅ Sim — via BlocProvider.value na View | Opcional |
+| `common/widgets/` | ❌ Não | ✅ Sim |
+
+---
+
 ## Quando Criar Widgets
 
 ### ✅ CRIE quando:
@@ -288,7 +328,9 @@ Precisa de controller/timer/animação?
 
 Será usado em várias features?
   ├─ SIM → common/widgets/
-  └─ NÃO → presentation/<feature>/widgets/
+  └─ NÃO → É específico de uma única View (não reutilizável)?
+              ├─ SIM → presentation/<feature>/content/
+              └─ NÃO → presentation/<feature>/widgets/
 
 Tem entity relacionada?
   ├─ SIM → prefira passar a entity completa
@@ -319,4 +361,4 @@ Tem entity relacionada?
 
 ---
 
-**Última atualização**: 15 de janeiro de 2026
+**Última atualização**: 28 de março de 2026
