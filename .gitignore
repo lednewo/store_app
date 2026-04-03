@@ -115,3 +115,19 @@ app.*.map.json
 
 # Generated l10n files
 lib/l10n/gen/
+
+# Internal agent / instruction files
+.github/instructions/
+.github/skills/
+.github/prompts/
+.github/copilot-instructions.md
+.claude/
+.agents/
+AGENTS.md
+CLAUDE.md
+
+# Base app local scripts
+change_app_name.sh
+change_icons.sh
+create_project.sh
+sync-instructions.sh
