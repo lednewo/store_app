@@ -13,5 +13,4 @@ abstract class AuthRepository extends ChangeNotifier {
   Future<void> saveLocalProfile(LoginEntity loginEntity);
   Future<Result<ProfileEntity?>> getLocalProfile();
   Future<Result<void>> logout();
-  Future<Result<ProfileEntity?>> getProfile();
 }

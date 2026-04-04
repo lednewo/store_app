@@ -12,12 +12,15 @@ import 'package:base_app/data/datasources/auth/auth_local_datasource.dart';
 import 'package:base_app/data/datasources/auth/auth_local_datasource_impl.dart';
 import 'package:base_app/data/datasources/order/order_datasource.dart';
 import 'package:base_app/data/datasources/products/products_datasource.dart';
+import 'package:base_app/data/datasources/profile/profile_datasource.dart';
 import 'package:base_app/data/repositories/auth_repository_impl.dart';
 import 'package:base_app/data/repositories/orders_repository_impl.dart';
 import 'package:base_app/data/repositories/products_repository_impl.dart';
+import 'package:base_app/data/repositories/profile_repository_impl.dart';
 import 'package:base_app/domain/interfaces/auth_repository.dart';
 import 'package:base_app/domain/interfaces/order_repository.dart';
 import 'package:base_app/domain/interfaces/products_repository.dart';
+import 'package:base_app/domain/interfaces/profile_repository.dart';
 import 'package:base_app/presentation/auth/view_model/login_cubit.dart';
 import 'package:base_app/presentation/auth/view_model/register_cubit.dart';
 import 'package:base_app/presentation/products/view/cart/view_model/cart_cubit.dart';
@@ -77,6 +80,9 @@ class AppInjector {
       ..registerLazySingleton<OrderDatasource>(
         () => OrderDatasource(httpService: inject()),
       )
+      ..registerLazySingleton<ProfileDatasource>(
+        () => ProfileDatasource(httpService: inject()),
+      )
       // Repositories
       ..registerLazySingleton<AuthRepository>(
         () => AuthRepositoryImpl(
@@ -89,6 +95,12 @@ class AppInjector {
       )
       ..registerLazySingleton<OrderRepository>(
         () => OrdersRepositoryImpl(orderDatasource: inject()),
+      )
+      ..registerLazySingleton<ProfileRepository>(
+        () => ProfileRepositoryImpl(
+          profileDatasource: inject(),
+          authLocalDatasource: inject(),
+        ),
       )
       // Services
       ..registerLazySingleton<InAppPurchaseService>(
@@ -105,7 +117,7 @@ class AppInjector {
         () => ProductsCubit(repository: inject()),
       )
       ..registerFactory<ProfileCubit>(
-        () => ProfileCubit(inject()),
+        () => ProfileCubit(inject(), inject()),
       )
       ..registerFactory<SplashCubit>(
         () => SplashCubit(inject()),
@@ -129,7 +141,8 @@ class AppInjector {
       case AppFlavor.staging:
         return 'https://staging-api.example.com';
       case AppFlavor.production:
-        return 'http://192.168.1.9:8080/api';
+        // return 'http://127.0.0.1:8080/api'; // local
+        return 'http://192.168.1.9:8080/api'; // pc wendel
     }
   }
 

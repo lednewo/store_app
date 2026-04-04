@@ -1,11 +1,14 @@
 import 'package:base_app/common/utils/extensions/text_words_extension.dart';
 import 'package:base_app/common/utils/login_detect.dart';
 import 'package:base_app/common/widgets/app_button.dart';
+import 'package:base_app/common/widgets/app_snackbar.dart';
+import 'package:base_app/domain/entities/profile_entity.dart';
 import 'package:base_app/config/inject/app_injector.dart';
 import 'package:base_app/config/routes/app_routes.dart';
 import 'package:base_app/l10n/l10n.dart';
 import 'package:base_app/presentation/profile/view_model/profile_cubit.dart';
 import 'package:base_app/presentation/profile/view_model/profile_state.dart';
+import 'package:base_app/presentation/profile/widgets/update_profile_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -32,6 +35,20 @@ class _ProfileViewState extends State<ProfileView> {
     super.dispose();
   }
 
+  Future<void> _onShowBottomSheetUpdateProfile({
+    required ProfileEntity profile,
+  }) async {
+    await showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => UpdateProfileSheet(
+        profile: profile,
+        onConfirm: _cubit.updateProfile,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
@@ -43,6 +60,13 @@ class _ProfileViewState extends State<ProfileView> {
       listener: (context, state) {
         if (state is ProfileLoggedOut) {
           context.pushReplacement(AppRoutes.login);
+        }
+        if (state is ProfileUpdateSuccess) {
+          AppSnackbar.showSuccess(context, message: state.message);
+          _cubit.loadProfile();
+        }
+        if (state is ProfileUpdateError) {
+          AppSnackbar.showError(context, message: state.message);
         }
       },
       builder: (context, state) {
@@ -56,7 +80,7 @@ class _ProfileViewState extends State<ProfileView> {
             body: SafeArea(
               child: RefreshIndicator(
                 onRefresh: () async {
-                  _cubit.loadProfile();
+                  await _cubit.loadProfile();
                 },
                 child: ListView(
                   children: [
@@ -205,6 +229,15 @@ class _ProfileViewState extends State<ProfileView> {
                             ),
                           ),
                           const SizedBox(height: 24),
+                          AppButton(
+                            label: l10n.updateProfileButton,
+                            onTap: () => _onShowBottomSheetUpdateProfile(
+                              profile: profile,
+                            ),
+                            isFullWidth: true,
+                            variant: AppButtonVariant.secondary,
+                          ),
+                          const SizedBox(height: 12),
                           if (LoginDetect.isVendedor) ...[
                             AppButton(
                               label: l10n.addProductButton,

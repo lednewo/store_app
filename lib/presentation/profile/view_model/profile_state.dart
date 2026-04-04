@@ -29,3 +29,13 @@ class ProfileError extends ProfileState {
 class ProfileLoggedOut extends ProfileState {
   const ProfileLoggedOut();
 }
+
+class ProfileUpdateSuccess extends ProfileState {
+  const ProfileUpdateSuccess(this.message);
+  final String message;
+}
+
+class ProfileUpdateError extends ProfileState {
+  const ProfileUpdateError(this.message);
+  final String message;
+}

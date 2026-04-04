@@ -62,7 +62,7 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
     super.dispose();
   }
 
-  void _handleSubmit() {
+  Future<void> _handleSubmit() async {
     final isValid = _formKey.currentState?.validate() ?? false;
     if (!isValid || widget.isLoading) {
       return;
@@ -77,7 +77,7 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
       _zipCodeController.text.trim(),
     ].join(', ');
 
-    widget.onSubmit(
+    await widget.onSubmit(
       name: _nameController.text,
       email: _emailController.text,
       password: _passwordController.text,

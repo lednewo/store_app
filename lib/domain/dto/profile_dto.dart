@@ -1,21 +1,18 @@
-class RegisterDto {
-  RegisterDto({
+class ProfileDto {
+  ProfileDto({
+    required this.id,
     this.name,
-    this.password,
-    this.email,
     this.phone,
     this.address,
   });
+  final String id;
   final String? name;
-  final String? password;
-  final String? email;
   final String? phone;
   final String? address;
 
   Map<String, dynamic> toMap() => {
+    'id': id,
     if (name != null) 'name': name,
-    if (password != null) 'password': password,
-    if (email != null) 'email': email,
     if (phone != null) 'phone': phone,
     if (address != null) 'address': address,
   };

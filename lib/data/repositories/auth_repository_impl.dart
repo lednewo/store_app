@@ -7,7 +7,6 @@ import 'package:base_app/data/datasources/auth/auth_datasource.dart';
 import 'package:base_app/data/datasources/auth/auth_local_datasource.dart';
 import 'package:base_app/data/models/default_return_model.dart';
 import 'package:base_app/data/models/login_model.dart';
-import 'package:base_app/data/models/profile_model.dart';
 import 'package:base_app/domain/dto/login_dto.dart';
 import 'package:base_app/domain/dto/register_dto.dart';
 import 'package:base_app/domain/entities/login_entity.dart';
@@ -39,28 +38,6 @@ class AuthRepositoryImpl extends AuthRepository {
     } on Exception catch (e) {
       log('Error in getLocalProfile: $e');
       return Result.error(Exception('Failed to get local profile: $e'));
-    }
-  }
-
-  @override
-  Future<Result<ProfileEntity?>> getProfile() async {
-    try {
-      final result = await _authDatasource.getProfile();
-      if (result.statusCode != 200) {
-        return Result.error(
-          Exception(
-            'Failed to get profile: ${result.statusCode} ${result.data}',
-          ),
-        );
-      }
-
-      final profile = ProfileModel.fromMap(result.data as Map<String, dynamic>);
-      await _authLocalDatasource.saveLocalProfile(profile);
-      _saveLoginAndUserType(loginType: profile.userType.loginType);
-      return Result.ok(profile);
-    } on Exception catch (e) {
-      log('Error in getProfile: $e');
-      return Result.error(Exception('Failed to get profile: $e'));
     }
   }
 
@@ -131,6 +108,16 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<Result<DefaultReturnModel>> register(RegisterDto dto) async {
     try {
       final result = await _authDatasource.register(dto);
+
+      if (!result.isSuccess || result.data == null) {
+        return Result.error(
+          Failure(
+            errorMessage: result.message ?? 'Erro ao realizar registro',
+            responseStatus: result.status,
+            statusCode: result.statusCode,
+          ),
+        );
+      }
       final responseData = DefaultReturnModel.fromMap(
         result.data as Map<String, dynamic>,
       );

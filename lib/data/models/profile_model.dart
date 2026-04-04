@@ -2,6 +2,7 @@ import 'package:base_app/domain/entities/profile_entity.dart';
 
 class ProfileModel extends ProfileEntity {
   ProfileModel({
+    required super.id,
     required super.name,
     required super.email,
     required super.phone,
@@ -11,6 +12,7 @@ class ProfileModel extends ProfileEntity {
 
   factory ProfileModel.fromMap(Map<String, dynamic> map) {
     return ProfileModel(
+      id: map['id'] as String? ?? '',
       name: map['name'] as String? ?? '',
       email: map['email'] as String? ?? '',
       phone: map['phone'] as String? ?? '',
@@ -20,6 +22,7 @@ class ProfileModel extends ProfileEntity {
   }
   factory ProfileModel.fromEntity(ProfileEntity entity) {
     return ProfileModel(
+      id: entity.id,
       name: entity.name,
       email: entity.email,
       phone: entity.phone,

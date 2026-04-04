@@ -24,18 +24,13 @@ class AuthDatasource {
     return response;
   }
 
-  Future<BaseResponse> getProfile() async {
-    final response = await _httpService.get('/users/getProfile');
+  Future<BaseResponse> logout() async {
+    final response = await _httpService.post('/auth/logout');
     return response;
   }
 
   Future<BaseResponse> refreshToken() async {
     final response = await _httpService.post('/auth/refresh-token');
-    return response;
-  }
-
-  Future<BaseResponse> logout() async {
-    final response = await _httpService.post('/auth/logout');
     return response;
   }
 }
