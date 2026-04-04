@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <!-- Fundo -->
+  <rect width="1024" height="1024" rx="220" fill="#1A1208"/>
+
+  <!-- Sola base -->
+  <ellipse cx="512" cy="720" rx="280" ry="55" fill="#3D2010"/>
+  <ellipse cx="512" cy="705" rx="280" ry="46" fill="#5C4020"/>
+
+  <!-- Nervuras da sola -->
+  <rect x="268" y="678" width="36" height="30" rx="7" fill="#5C4020"/>
+  <rect x="316" y="678" width="36" height="30" rx="7" fill="#5C4020"/>
+  <rect x="364" y="678" width="36" height="30" rx="7" fill="#5C4020"/>
+  <rect x="412" y="678" width="36" height="30" rx="7" fill="#5C4020"/>
+  <rect x="460" y="678" width="36" height="30" rx="7" fill="#5C4020"/>
+  <rect x="508" y="678" width="36" height="30" rx="7" fill="#5C4020"/>
+  <rect x="556" y="678" width="36" height="30" rx="7" fill="#5C4020"/>
+  <rect x="604" y="678" width="36" height="30" rx="7" fill="#5C4020"/>
+  <rect x="652" y="678" width="36" height="30" rx="7" fill="#5C4020"/>
+
+  <!-- Corpo principal do tênis -->
+  <path d="M270,705 C245,660 232,590 255,510 C272,448 318,400 382,388 C422,380 462,390 492,408 L576,430 C624,444 668,460 688,500 C702,528 700,590 692,640 C688,662 682,685 676,700 Z" fill="#EDD9B8"/>
+
+  <!-- Painel lateral dourado -->
+  <path d="M270,705 C245,660 232,590 255,510 C272,448 318,400 382,388 C408,382 430,386 448,396 L468,410 C432,420 396,442 374,490 C350,542 346,620 352,672 Z" fill="#C9A96E"/>
+
+  <!-- Parte superior / cano -->
+  <path d="M382,388 C422,380 462,390 492,408 L510,394 C476,374 434,364 382,372 Z" fill="#FAF6EF"/>
+
+  <!-- Cadarços -->
+  <path d="M388,468 Q512,450 608,464" fill="none" stroke="#FAF6EF" stroke-width="10" stroke-linecap="round"/>
+  <path d="M382,504 Q512,484 614,500" fill="none" stroke="#FAF6EF" stroke-width="10" stroke-linecap="round"/>
+  <path d="M378,540 Q512,518 616,536" fill="none" stroke="#FAF6EF" stroke-width="10" stroke-linecap="round"/>
+  <path d="M376,576 Q512,554 618,572" fill="none" stroke="#FAF6EF" stroke-width="10" stroke-linecap="round"/>
+
+  <!-- Ilhós -->
+  <circle cx="388" cy="468" r="10" fill="#C9A96E"/>
+  <circle cx="608" cy="464" r="10" fill="#C9A96E"/>
+  <circle cx="382" cy="504" r="10" fill="#C9A96E"/>
+  <circle cx="614" cy="500" r="10" fill="#C9A96E"/>
+  <circle cx="378" cy="540" r="10" fill="#C9A96E"/>
+  <circle cx="616" cy="536" r="10" fill="#C9A96E"/>
+  <circle cx="376" cy="576" r="10" fill="#C9A96E"/>
+  <circle cx="618" cy="572" r="10" fill="#C9A96E"/>
+
+  <!-- Swoosh dourado -->
+  <path d="M310,648 Q460,600 680,618" fill="none" stroke="#C9A96E" stroke-width="9" stroke-linecap="round"/>
+
+  <!-- Contorno -->
+  <path d="M270,705 C245,660 232,590 255,510 C272,448 318,400 382,388 C422,380 462,390 492,408 L576,430 C624,444 668,460 688,500 C702,528 700,590 692,640 C688,662 682,685 676,700 Z" fill="none" stroke="#C9A96E" stroke-width="4"/>
+</svg>
