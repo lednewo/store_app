@@ -12,12 +12,14 @@ class OrderSummaryCard extends StatelessWidget {
     required this.formattedDate,
     required this.formattedTotal,
     required this.onUpdateStatus,
+    required this.onDeleteOrder,
     super.key,
   });
 
   final OrderDetailEntity orderDetails;
   final OrderStatusEnum status;
   final VoidCallback onUpdateStatus;
+  final VoidCallback onDeleteOrder;
   final String formattedDate;
   final String formattedTotal;
 
@@ -129,6 +131,14 @@ class OrderSummaryCard extends StatelessWidget {
                 label: l10n.orderDetailsUpdateStatusButton,
                 onTap: onUpdateStatus,
                 isFullWidth: true,
+              ),
+            const SizedBox(height: 8),
+            if (!LoginDetect.isCliente)
+              AppButton(
+                label: l10n.orderDetailsDeleteButton,
+                onTap: onDeleteOrder,
+                isFullWidth: true,
+                variant: AppButtonVariant.destructive,
               ),
           ],
         ),

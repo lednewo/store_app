@@ -12,11 +12,13 @@ class OrderDetailsContent extends StatelessWidget {
   const OrderDetailsContent({
     required this.orderDetails,
     required this.updateStatus,
+    required this.onDeleteOrder,
     super.key,
   });
 
   final OrderDetailEntity orderDetails;
   final VoidCallback updateStatus;
+  final VoidCallback onDeleteOrder;
   @override
   Widget build(BuildContext context) {
     final localeName = Localizations.localeOf(context).toString();
@@ -38,6 +40,7 @@ class OrderDetailsContent extends StatelessWidget {
           formattedDate: dateFormatter.format(orderDetails.orderDate),
           formattedTotal: currencyFormatter.format(orderDetails.total),
           onUpdateStatus: updateStatus,
+          onDeleteOrder: onDeleteOrder,
         ),
         const SizedBox(height: 16),
 

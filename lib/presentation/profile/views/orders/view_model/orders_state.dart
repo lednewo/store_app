@@ -39,3 +39,13 @@ class OrderDetailsLoaded extends OrdersState {
   const OrderDetailsLoaded(this.orderDetails);
   final OrderDetailEntity orderDetails;
 }
+
+class OrderDeleted extends OrdersState {
+  const OrderDeleted(this.message);
+  final String message;
+}
+
+class OrderDeleteError extends OrdersState {
+  const OrderDeleteError(this.message);
+  final String message;
+}

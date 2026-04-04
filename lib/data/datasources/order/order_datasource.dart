@@ -42,4 +42,12 @@ class OrderDatasource {
     );
     return response;
   }
+
+  Future<BaseResponse> deleteOrder(String id) async {
+    final response = await _httpService.delete(
+      '/orders/delete',
+      queryParameters: {'orderId': id},
+    );
+    return response;
+  }
 }

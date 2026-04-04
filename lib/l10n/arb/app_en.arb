@@ -212,6 +212,11 @@
         "description": "Label for the user type field on the profile screen"
     },
     "profileAddressLabel": "Address",
+    "updateProfileButton": "Update profile",
+    "updateProfileTitle": "Update profile",
+    "updateProfileSubtitle": "Fill in only the fields you want to update",
+    "updateProfileSaveButton": "Save changes",
+    "updateProfileFillAtLeastOne": "Fill in at least one field.",
     "@profileAddressLabel": {
         "description": "Label for the address field on the profile screen"
     },
@@ -267,9 +272,13 @@
     "orderDetailsEmptyItemsMessage": "This order has no items.",
     "orderDetailsNotProvidedLabel": "Not provided",
     "orderDetailsUpdateStatusButton": "Update status",
+    "orderDetailsDeleteButton": "Delete order",
     "orderDetailsUpdateStatusSheetTitle": "Update status",
     "orderDetailsUpdateStatusSheetSubtitle": "Select the new order status",
     "orderDetailsUpdateStatusConfirmButton": "Confirm update",
+    "deleteOrderTitle": "Delete order",
+    "deleteOrderDescription": "Are you sure you want to delete this order? This action cannot be undone.",
+    "deleteOrderConfirmLabel": "Delete",
     "orderDetailsStatusPending": "Pending",
     "orderDetailsStatusPaid": "Paid",
     "orderDetailsStatusShipped": "Shipped",

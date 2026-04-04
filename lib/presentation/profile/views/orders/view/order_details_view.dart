@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:base_app/common/widgets/app_dialog.dart';
 import 'package:base_app/common/widgets/app_snackbar.dart';
 import 'package:base_app/config/inject/app_injector.dart';
 import 'package:base_app/domain/dto/update_order_status.dart';
@@ -62,11 +63,23 @@ class _OrderDetailsViewState extends State<OrderDetailsView> {
     );
   }
 
+  Future<void> showModalDeleteOrder() async {
+    final l10n = context.l10n;
+    final confirmed = await AppDialog.show(
+      context: context,
+      title: l10n.deleteOrderTitle,
+      description: l10n.deleteOrderDescription,
+      confirmLabel: l10n.deleteOrderConfirmLabel,
+    );
+    if (confirmed == true) {
+      unawaited(_ordersCubit.deleteOrder(widget.orderId));
+    }
+  }
+
   void _closeDetails() {
     if (!mounted) {
       return;
     }
-
     Navigator.of(context).pop(_shouldRefreshOrders);
   }
 
@@ -105,6 +118,11 @@ class _OrderDetailsViewState extends State<OrderDetailsView> {
                   _shouldRefreshOrders = true;
                   AppSnackbar.showSuccess(context, message: state.message);
                   unawaited(_ordersCubit.getOrderDetails(widget.orderId));
+                }
+                if (state is OrderDeleted) {
+                  _shouldRefreshOrders = true;
+                  AppSnackbar.showSuccess(context, message: state.message);
+                  _closeDetails();
                 }
               },
               builder: (context, state) {
@@ -159,6 +177,7 @@ class _OrderDetailsViewState extends State<OrderDetailsView> {
                         ),
                       );
                     },
+                    onDeleteOrder: showModalDeleteOrder,
                   );
                 }
                 return const SizedBox.shrink();

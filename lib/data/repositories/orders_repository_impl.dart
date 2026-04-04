@@ -132,4 +132,32 @@ class OrdersRepositoryImpl implements OrderRepository {
       );
     }
   }
+
+  @override
+  Future<Result<DefaultReturnEntity>> deleteOrder(String id) async {
+    try {
+      final result = await _orderDatasource.deleteOrder(id);
+
+      if (!result.isSuccess || result.data == null) {
+        return Result.error(
+          Failure(
+            errorMessage: result.message ?? 'Erro ao deletar pedido',
+            responseStatus: result.status,
+            statusCode: result.statusCode,
+          ),
+        );
+      }
+
+      final defaultReturn = DefaultReturnModel.fromMap(
+        result.data as Map<String, dynamic>,
+      );
+      return Result.ok(defaultReturn);
+    } on Exception catch (e) {
+      return Result.error(
+        Failure(
+          errorMessage: e.toString(),
+        ),
+      );
+    }
+  }
 }

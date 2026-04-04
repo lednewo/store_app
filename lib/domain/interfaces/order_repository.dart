@@ -11,4 +11,5 @@ abstract class OrderRepository {
   Future<Result<DefaultReturnEntity>> createOrder(OrderDto dto);
   Future<Result<DefaultReturnEntity>> updateStatusOrder(UpdateOrderStatus dto);
   Future<Result<OrderDetailEntity>> getOrderDetails(String id);
+  Future<Result<DefaultReturnEntity>> deleteOrder(String id);
 }
