@@ -4,12 +4,14 @@ import 'package:base_app/data/datasources/order/order_datasource.dart';
 import 'package:base_app/data/models/default_return_model.dart';
 import 'package:base_app/data/models/order_detail_model.dart';
 import 'package:base_app/data/models/paginated_orders_model.dart';
+import 'package:base_app/data/models/solds_quantity_model.dart';
 import 'package:base_app/domain/dto/order_dto.dart';
 import 'package:base_app/domain/dto/pagination_dto.dart';
 import 'package:base_app/domain/dto/update_order_status.dart';
 import 'package:base_app/domain/entities/default_return_entity.dart';
 import 'package:base_app/domain/entities/order_detail_entity.dart';
 import 'package:base_app/domain/entities/paginated_orders_entity.dart';
+import 'package:base_app/domain/entities/solds_quantity_entity.dart';
 import 'package:base_app/domain/interfaces/order_repository.dart';
 
 class OrdersRepositoryImpl implements OrderRepository {
@@ -152,6 +154,34 @@ class OrdersRepositoryImpl implements OrderRepository {
         result.data as Map<String, dynamic>,
       );
       return Result.ok(defaultReturn);
+    } on Exception catch (e) {
+      return Result.error(
+        Failure(
+          errorMessage: e.toString(),
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Result<List<SoldsQuantityEntity>>> getSoldQuantity() async {
+    try {
+      final result = await _orderDatasource.getSoldQuantity();
+
+      if (!result.isSuccess || result.data == null) {
+        return Result.error(
+          Failure(
+            errorMessage: result.message ?? 'Erro ao obter quantidade vendida',
+            responseStatus: result.status,
+            statusCode: result.statusCode,
+          ),
+        );
+      }
+
+      final soldsQuantity = (result.data as List)
+          .map((e) => SoldsQuantityModel.fromJson(e as Map<String, dynamic>))
+          .toList();
+      return Result.ok(soldsQuantity);
     } on Exception catch (e) {
       return Result.error(
         Failure(

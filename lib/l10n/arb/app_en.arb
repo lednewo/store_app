@@ -228,6 +228,14 @@
     "@dashboardTitle": {
         "description": "Title shown on the Dashboard tab"
     },
+    "dashboardSoldsChartTitle": "Products sold in the last 3 months",
+    "@dashboardSoldsChartTitle": {
+        "description": "Title of the bar chart showing monthly sold quantities"
+    },
+    "dashboardRetryButton": "Try again",
+    "@dashboardRetryButton": {
+        "description": "Label for the retry button shown when dashboard loading fails"
+    },
     "dashboardComingSoon": "Coming soon",
     "@dashboardComingSoon": {
         "description": "Placeholder text shown on the blank Dashboard tab"

@@ -53,6 +53,8 @@
     "updateProfileSaveButton": "Salvar alterações",
     "updateProfileFillAtLeastOne": "Preencha pelo menos um campo.",
     "dashboardTitle": "Dashboard",
+    "dashboardSoldsChartTitle": "Produtos vendidos nos últimos 3 meses",
+    "dashboardRetryButton": "Tentar novamente",
     "dashboardComingSoon": "Em breve",
     "productsTabLabel": "Produtos",
     "addProductButton": "Adicionar produto",

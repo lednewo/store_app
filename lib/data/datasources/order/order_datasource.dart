@@ -50,4 +50,11 @@ class OrderDatasource {
     );
     return response;
   }
+
+  Future<BaseResponse> getSoldQuantity() async {
+    final response = await _httpService.get(
+      '/orders/soldQuantityLast3Months',
+    );
+    return response;
+  }
 }

@@ -23,6 +23,7 @@ import 'package:base_app/domain/interfaces/products_repository.dart';
 import 'package:base_app/domain/interfaces/profile_repository.dart';
 import 'package:base_app/presentation/auth/view_model/login_cubit.dart';
 import 'package:base_app/presentation/auth/view_model/register_cubit.dart';
+import 'package:base_app/presentation/dashboard/view_model/dashboard_cubit.dart';
 import 'package:base_app/presentation/products/view/cart/view_model/cart_cubit.dart';
 import 'package:base_app/presentation/products/view_model/products_cubit.dart';
 import 'package:base_app/presentation/profile/view_model/profile_cubit.dart';
@@ -131,6 +132,9 @@ class AppInjector {
       )
       ..registerFactory<OrdersCubit>(
         () => OrdersCubit(inject()),
+      )
+      ..registerFactory<DashboardCubit>(
+        () => DashboardCubit(inject()),
       );
   }
 
