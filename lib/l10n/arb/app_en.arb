@@ -167,6 +167,14 @@
     "@cancelButton": {
         "description": "Label for cancel button"
     },
+    "yesButton": "Yes",
+    "@yesButton": {
+        "description": "Label for yes button"
+    },
+    "noButton": "No",
+    "@noButton": {
+        "description": "Label for no button"
+    },
     "okButton": "OK",
     "@okButton": {
         "description": "Label for OK button"
@@ -190,6 +198,14 @@
     "unauthorizedMessage": "Session expired. Please log in again.",
     "@unauthorizedMessage": {
         "description": "Message shown when the user session has expired"
+    },
+    "logoutDialogTitle": "Sign out",
+    "@logoutDialogTitle": {
+        "description": "Title shown in the logout confirmation dialog"
+    },
+    "logoutDescription": "Are you sure you want to sign out of your account?",
+    "@logoutDescription": {
+        "description": "Description shown in the logout confirmation dialog"
     },
     "profileTitle": "My Profile",
     "@profileTitle": {

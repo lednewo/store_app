@@ -1,10 +1,11 @@
 import 'package:base_app/common/utils/extensions/text_words_extension.dart';
 import 'package:base_app/common/utils/login_detect.dart';
 import 'package:base_app/common/widgets/app_button.dart';
+import 'package:base_app/common/widgets/app_dialog.dart';
 import 'package:base_app/common/widgets/app_snackbar.dart';
-import 'package:base_app/domain/entities/profile_entity.dart';
 import 'package:base_app/config/inject/app_injector.dart';
 import 'package:base_app/config/routes/app_routes.dart';
+import 'package:base_app/domain/entities/profile_entity.dart';
 import 'package:base_app/l10n/l10n.dart';
 import 'package:base_app/presentation/profile/view_model/profile_cubit.dart';
 import 'package:base_app/presentation/profile/view_model/profile_state.dart';
@@ -47,6 +48,20 @@ class _ProfileViewState extends State<ProfileView> {
         onConfirm: _cubit.updateProfile,
       ),
     );
+  }
+
+  Future<void> _onShowLogoutDialog() async {
+    final l10n = context.l10n;
+    final result = await AppDialog.show(
+      title: l10n.logoutDialogTitle,
+      context: context,
+      description: l10n.logoutDescription,
+      confirmLabel: l10n.yesButton,
+      cancelLabel: l10n.noButton,
+    );
+    if (result == true) {
+      await _cubit.logout();
+    }
   }
 
   @override
@@ -250,12 +265,9 @@ class _ProfileViewState extends State<ProfileView> {
                           AppButton(
                             label: l10n.logoutButton,
                             variant: AppButtonVariant.destructive,
-                            onTap: _cubit.logout,
+                            onTap: _onShowLogoutDialog,
                             isFullWidth: true,
                           ),
-
-                          const SizedBox(height: 12),
-
                           const SizedBox(height: 80),
                         ],
                       ),
