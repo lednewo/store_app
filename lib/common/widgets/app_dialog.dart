@@ -22,7 +22,6 @@ class AppDialog extends StatelessWidget {
   final IconData? icon;
   final bool isDangerous;
 
-  /// Exibe o dialog e retorna `true` se confirmado, `false` caso contrário.
   static Future<bool> show({
     required BuildContext context,
     required String title,
@@ -161,7 +160,6 @@ class _DialogContentState extends State<_DialogContent>
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              // ── Ícone / faixa superior ──────────────────────────────────
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(vertical: 28),
@@ -190,8 +188,6 @@ class _DialogContentState extends State<_DialogContent>
                   ),
                 ),
               ),
-
-              // ── Textos ──────────────────────────────────────────────────
               Padding(
                 padding: const EdgeInsets.fromLTRB(24, 20, 24, 8),
                 child: Text(
@@ -217,14 +213,12 @@ class _DialogContentState extends State<_DialogContent>
                 ),
               ),
 
-              // ── Divisor ─────────────────────────────────────────────────
               Divider(
                 height: 1,
                 thickness: 1,
                 color: Theme.of(context).colorScheme.outline.withOpacity(0.12),
               ),
 
-              // ── Botões ──────────────────────────────────────────────────
               IntrinsicHeight(
                 child: Row(
                   children: [

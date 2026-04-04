@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class AppButton extends StatefulWidget {
   const AppButton({
-    super.key,
     required this.label,
+    super.key,
     this.onTap,
     this.icon,
     this.variant = AppButtonVariant.primary,
@@ -101,35 +101,35 @@ class _AppButtonState extends State<AppButton>
     final (bgColor, fgColor, borderColor) = switch (widget.variant) {
       AppButtonVariant.primary => (
         isDisabled
-            ? colorScheme.onSurface.withOpacity(0.12)
+            ? colorScheme.onSurface.withValues(alpha: 0.12)
             : colorScheme.primary,
         isDisabled
-            ? colorScheme.onSurface.withOpacity(0.38)
+            ? colorScheme.onSurface.withValues(alpha: 0.38)
             : colorScheme.onPrimary,
         Colors.transparent,
       ),
       AppButtonVariant.secondary => (
         isDisabled
-            ? colorScheme.onSurface.withOpacity(0.12)
+            ? colorScheme.onSurface.withValues(alpha: 0.12)
             : colorScheme.secondaryContainer,
         isDisabled
-            ? colorScheme.onSurface.withOpacity(0.38)
+            ? colorScheme.onSurface.withValues(alpha: 0.38)
             : colorScheme.onSecondaryContainer,
         Colors.transparent,
       ),
       AppButtonVariant.ghost => (
         _isPressed ? colorScheme.surfaceContainerHighest : Colors.transparent,
         isDisabled
-            ? colorScheme.onSurface.withOpacity(0.38)
+            ? colorScheme.onSurface.withValues(alpha: 0.38)
             : colorScheme.onSurface,
         colorScheme.outlineVariant,
       ),
       AppButtonVariant.destructive => (
         isDisabled
-            ? colorScheme.onSurface.withOpacity(0.12)
+            ? colorScheme.onSurface.withValues(alpha: 0.12)
             : colorScheme.error.withValues(alpha: 0.8),
         isDisabled
-            ? colorScheme.onSurface.withOpacity(0.38)
+            ? colorScheme.onSurface.withValues(alpha: 0.38)
             : colorScheme.surface,
         Colors.transparent,
       ),
@@ -191,7 +191,7 @@ class _AppButtonState extends State<AppButton>
             boxShadow: widget.variant == AppButtonVariant.primary && !isDisabled
                 ? [
                     BoxShadow(
-                      color: colorScheme.primary.withOpacity(0.30),
+                      color: colorScheme.primary.withValues(alpha: 0.30),
                       blurRadius: 8,
                       offset: const Offset(0, 3),
                     ),
