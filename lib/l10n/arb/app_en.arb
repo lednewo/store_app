@@ -317,6 +317,8 @@
         }
     },
     "latestProductsLabel": "New arrivals",
-    "allProductsLabel": "All products"
+    "allProductsLabel": "All products",
+    "dashboardTopProductsTitle": "Top selling products",
+    "dashboardNoProductsFound": "No products found."
 
 }

@@ -144,5 +144,7 @@
         }
     },
     "latestProductsLabel": "Novidades",
-    "allProductsLabel": "Todos os produtos"
+    "allProductsLabel": "Todos os produtos",
+    "dashboardTopProductsTitle": "Produtos mais vendidos",
+    "dashboardNoProductsFound": "Nenhum produto encontrado."
 }

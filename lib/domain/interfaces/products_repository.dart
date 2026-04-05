@@ -1,9 +1,11 @@
 import 'package:base_app/config/error/result_pattern.dart';
+import 'package:base_app/domain/dto/filter_month_year_dto.dart';
 import 'package:base_app/domain/dto/pagination_dto.dart';
 import 'package:base_app/domain/dto/product_dto.dart';
 import 'package:base_app/domain/entities/default_return_entity.dart';
 import 'package:base_app/domain/entities/paginated_products_entity.dart';
 import 'package:base_app/domain/entities/product_entity.dart';
+import 'package:base_app/domain/entities/top_selling_products_entity.dart';
 
 abstract class ProductsRepository {
   /// Cria um novo produto
@@ -13,4 +15,7 @@ abstract class ProductsRepository {
   Future<Result<DefaultReturnEntity>> updateProduct(ProductDto dto);
   Future<Result<DefaultReturnEntity>> deleteProduct(String id);
   Future<Result<List<ProductEntity>>> getLatestProducts();
+  Future<Result<List<TopSellingProductsEntity>>> getTop3Products(
+    FilterMonthYearDto dto,
+  );
 }

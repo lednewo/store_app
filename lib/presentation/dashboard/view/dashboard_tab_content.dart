@@ -1,9 +1,11 @@
 import 'package:base_app/common/widgets/app_button.dart';
 import 'package:base_app/config/inject/app_injector.dart';
+import 'package:base_app/domain/dto/filter_month_year_dto.dart';
 import 'package:base_app/l10n/l10n.dart';
 import 'package:base_app/presentation/dashboard/view_model/dashboard_cubit.dart';
 import 'package:base_app/presentation/dashboard/view_model/dashboard_state.dart';
 import 'package:base_app/presentation/dashboard/widgets/solds_bar_chart.dart';
+import 'package:base_app/presentation/dashboard/widgets/top_product_title.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,6 +23,7 @@ class _DashboardTabContentState extends State<DashboardTabContent> {
   void initState() {
     super.initState();
     _cubit.loadDashboardData();
+    _cubit.loadTopProducts(FilterMonthYearDto());
   }
 
   @override
@@ -52,6 +55,7 @@ class _DashboardTabContentState extends State<DashboardTabContent> {
           if (state is DashboardLoadingState) {
             return const Center(child: CircularProgressIndicator());
           }
+
           if (state is DashboardErrorState) {
             return Center(
               child: AppButton(
@@ -61,9 +65,8 @@ class _DashboardTabContentState extends State<DashboardTabContent> {
               ),
             );
           }
-          if (state is DashboardLoadedState) {
-            final solds = state.soldsQuantity;
 
+          if (state is DashboardLoadedState) {
             return ListView(
               padding: const EdgeInsets.all(16),
               children: [
@@ -71,11 +74,45 @@ class _DashboardTabContentState extends State<DashboardTabContent> {
                   l10n.dashboardSoldsChartTitle,
                   style: textTheme.titleMedium,
                 ),
-                const SizedBox(height: 24),
+                const SizedBox(height: 16),
                 SizedBox(
                   height: 240,
-                  child: SoldsBarChart(data: solds),
+                  child: SoldsBarChart(data: state.soldsQuantity),
                 ),
+
+                const SizedBox(height: 32),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      l10n.dashboardTopProductsTitle,
+                      style: textTheme.titleMedium,
+                    ),
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.filter_list_alt,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                if (state.topProducts.isEmpty)
+                  Center(child: Text(l10n.dashboardNoProductsFound))
+                else
+                  ...state.topProducts
+                      .take(3)
+                      .toList()
+                      .asMap()
+                      .entries
+                      .map(
+                        (entry) => TopProductTile(
+                          rank: entry.key + 1,
+                          product: entry.value,
+                        ),
+                      ),
               ],
             );
           }

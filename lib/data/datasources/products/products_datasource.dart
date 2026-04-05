@@ -1,5 +1,6 @@
 import 'package:base_app/common/services/http/http_service.dart';
 import 'package:base_app/common/utils/base_response.dart';
+import 'package:base_app/domain/dto/filter_month_year_dto.dart';
 import 'package:base_app/domain/dto/pagination_dto.dart';
 import 'package:base_app/domain/dto/product_dto.dart';
 
@@ -50,6 +51,14 @@ class ProductsDatasource {
     final response = await _httpService.delete(
       '/products/delete',
       queryParameters: {'id': id},
+    );
+    return response;
+  }
+
+  Future<BaseResponse> getTop3Products(FilterMonthYearDto dto) async {
+    final response = await _httpService.get(
+      '/products/getTop3Sold',
+      queryParameters: dto.toJson(),
     );
     return response;
   }

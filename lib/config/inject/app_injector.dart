@@ -134,7 +134,7 @@ class AppInjector {
         () => OrdersCubit(inject()),
       )
       ..registerFactory<DashboardCubit>(
-        () => DashboardCubit(inject()),
+        () => DashboardCubit(inject(), inject()),
       );
   }
 

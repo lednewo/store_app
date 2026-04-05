@@ -1,4 +1,5 @@
 import 'package:base_app/domain/entities/solds_quantity_entity.dart';
+import 'package:base_app/domain/entities/top_selling_products_entity.dart';
 
 sealed class DashboardState {
   const DashboardState();
@@ -18,6 +19,25 @@ class DashboardErrorState extends DashboardState {
 }
 
 class DashboardLoadedState extends DashboardState {
-  const DashboardLoadedState(this.soldsQuantity);
+  const DashboardLoadedState({
+    required this.soldsQuantity,
+    this.topProducts = const [],
+  });
   final List<SoldsQuantityEntity> soldsQuantity;
+  final List<TopSellingProductsEntity> topProducts;
+
+  DashboardLoadedState copyWith({
+    List<SoldsQuantityEntity>? soldsQuantity,
+    List<TopSellingProductsEntity>? topProducts,
+  }) {
+    return DashboardLoadedState(
+      soldsQuantity: soldsQuantity ?? this.soldsQuantity,
+      topProducts: topProducts ?? this.topProducts,
+    );
+  }
+}
+
+class TopProductsLoadedState extends DashboardState {
+  const TopProductsLoadedState(this.topProducts);
+  final List<TopSellingProductsEntity> topProducts;
 }
