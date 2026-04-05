@@ -20,9 +20,7 @@ class MainShellView extends StatefulWidget {
 class _MainShellViewState extends State<MainShellView> {
   final ProfileCubit _profileCubit = AppInjector.inject.get<ProfileCubit>();
   int _currentIndex = 0;
-  final _pageController = PageController(
-    initialPage: 0,
-  );
+  final _pageController = PageController(initialPage: 0);
 
   @override
   void initState() {
@@ -84,9 +82,9 @@ class _MainShellViewState extends State<MainShellView> {
       ),
 
       if (LoginDetect.isCliente)
-        BottomNavigationBarItem(
-          icon: const Icon(Icons.shopping_cart_outlined),
-          activeIcon: const Icon(Icons.shopping_cart),
+        const BottomNavigationBarItem(
+          icon: Icon(Icons.shopping_cart_outlined),
+          activeIcon: Icon(Icons.shopping_cart),
           label: 'Carrinho',
         ),
       BottomNavigationBarItem(
@@ -158,7 +156,7 @@ class _MainShellViewState extends State<MainShellView> {
                   selectedItemColor: Theme.of(context).colorScheme.primary,
                   unselectedItemColor: Theme.of(
                     context,
-                  ).colorScheme.onSurface.withOpacity(0.6),
+                  ).colorScheme.onSurface.withValues(alpha: .6),
                   items: navItems,
                 ),
               );
