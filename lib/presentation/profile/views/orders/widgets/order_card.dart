@@ -116,8 +116,10 @@ class OrderCard extends StatelessWidget {
               margin: const EdgeInsets.fromLTRB(16, 0, 16, 16),
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
               decoration: BoxDecoration(
-                color: colorScheme.primaryContainer.withValues(alpha: .4),
                 borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: colorScheme.primaryContainer,
+                ),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -166,7 +168,7 @@ class OrderCard extends StatelessWidget {
 
             AppButton(
               label: l10n.orderDetailsOpenButton,
-              variant: AppButtonVariant.ghost,
+              variant: AppButtonVariant.secondary,
               onTap: () async {
                 final shouldRefresh = await context.push<bool>(
                   AppRoutes.orderDetails,

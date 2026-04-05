@@ -1,5 +1,6 @@
 import 'package:base_app/common/widgets/app_snackbar.dart';
 import 'package:base_app/config/inject/app_injector.dart';
+import 'package:base_app/config/routes/app_routes.dart';
 import 'package:base_app/domain/entities/cart_item_entity.dart';
 import 'package:base_app/l10n/l10n.dart';
 import 'package:base_app/presentation/products/view/cart/view_model/cart_cubit.dart';
@@ -35,7 +36,11 @@ class _CartViewState extends State<CartView> {
           listener: (context, state) {
             if (state is CartOrderSuccess) {
               _cubit.clearCart();
-              context.pop();
+              if (context.canPop()) {
+                context.pop();
+              } else {
+                context.go(AppRoutes.home);
+              }
               AppSnackbar.showSuccess(context, message: state.message);
             }
             if (state is CartOrderError) {
