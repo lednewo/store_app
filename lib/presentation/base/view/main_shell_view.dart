@@ -83,11 +83,12 @@ class _MainShellViewState extends State<MainShellView> {
         label: context.l10n.productsTabLabel,
       ),
 
-      BottomNavigationBarItem(
-        icon: const Icon(Icons.shopping_cart_outlined),
-        activeIcon: const Icon(Icons.shopping_cart),
-        label: 'Carrinho',
-      ),
+      if (LoginDetect.isCliente)
+        BottomNavigationBarItem(
+          icon: const Icon(Icons.shopping_cart_outlined),
+          activeIcon: const Icon(Icons.shopping_cart),
+          label: 'Carrinho',
+        ),
       BottomNavigationBarItem(
         icon: const Icon(Icons.person_outline),
         activeIcon: const Icon(Icons.person),
