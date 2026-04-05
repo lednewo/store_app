@@ -15,7 +15,7 @@ class LoginCubit extends Cubit<LoginState> {
 
     result.when(
       ok: (login) => emit(LoginLoaded(login)),
-      error: (error) => emit(const LoginError('Usuário ou senha inválidos.')),
+      error: (error) => emit(LoginError(error.toString())),
     );
   }
 }
