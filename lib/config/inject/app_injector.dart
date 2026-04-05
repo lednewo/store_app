@@ -128,7 +128,7 @@ class AppInjector {
       )
       // CartCubit é singleton para manter o estado do carrinho entre telas
       ..registerLazySingleton<CartCubit>(
-        () => CartCubit(inject()),
+        () => CartCubit(inject(), inject()),
       )
       ..registerFactory<OrdersCubit>(
         () => OrdersCubit(inject()),

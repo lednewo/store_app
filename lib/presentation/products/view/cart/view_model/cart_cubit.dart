@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:base_app/common/services/storage_service.dart';
+import 'package:base_app/data/models/cart_item_model.dart';
 import 'package:base_app/domain/dto/order_dto.dart';
 import 'package:base_app/domain/dto/order_item_dto.dart';
 import 'package:base_app/domain/entities/cart_item_entity.dart';
@@ -5,10 +9,16 @@ import 'package:base_app/domain/interfaces/order_repository.dart';
 import 'package:base_app/presentation/products/view/cart/view_model/cart_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+const _kCartStorageKey = 'cart_items';
+
 class CartCubit extends Cubit<CartState> {
-  CartCubit(this._orderRepository) : super(const CartInitial());
+  CartCubit(this._orderRepository, this._storageService)
+    : super(const CartInitial()) {
+    _loadCart();
+  }
 
   final OrderRepository _orderRepository;
+  final StorageService _storageService;
 
   List<CartItemEntity> get _currentItems => switch (state) {
     CartUpdated(:final items) => List<CartItemEntity>.from(items),
@@ -16,6 +26,26 @@ class CartCubit extends Cubit<CartState> {
     CartOrderError(:final items) => List<CartItemEntity>.from(items),
     _ => <CartItemEntity>[],
   };
+
+  Future<void> _loadCart() async {
+    final jsonList = await _storageService.getStringList(_kCartStorageKey);
+    if (jsonList == null || jsonList.isEmpty) return;
+    final items = jsonList
+        .map(
+          (e) => CartItemModel.fromJson(
+            jsonDecode(e) as Map<String, dynamic>,
+          ),
+        )
+        .toList();
+    emit(CartUpdated(List.unmodifiable(items)));
+  }
+
+  Future<void> _saveCart(List<CartItemEntity> items) async {
+    final jsonList = items
+        .map((e) => jsonEncode(CartItemModel.fromEntity(e).toJson()))
+        .toList();
+    await _storageService.setStringList(_kCartStorageKey, jsonList);
+  }
 
   void addItem(CartItemEntity item) {
     final items = _currentItems;
@@ -34,7 +64,9 @@ class CartCubit extends Cubit<CartState> {
       items.add(item);
     }
 
-    emit(CartUpdated(List.unmodifiable(items)));
+    final updatedItems = List<CartItemEntity>.unmodifiable(items);
+    emit(CartUpdated(updatedItems));
+    _saveCart(updatedItems);
   }
 
   void removeItem(String productId, String cor, int tamanho) {
@@ -42,7 +74,9 @@ class CartCubit extends Cubit<CartState> {
       ..removeWhere(
         (i) => i.productId == productId && i.cor == cor && i.tamanho == tamanho,
       );
-    emit(CartUpdated(List.unmodifiable(items)));
+    final updatedItems = List<CartItemEntity>.unmodifiable(items);
+    emit(CartUpdated(updatedItems));
+    _saveCart(updatedItems);
   }
 
   void updateQuantity(
@@ -61,12 +95,15 @@ class CartCubit extends Cubit<CartState> {
     );
     if (index != -1) {
       items[index] = items[index].copyWith(quantidade: quantidade);
-      emit(CartUpdated(List.unmodifiable(items)));
+      final updatedItems = List<CartItemEntity>.unmodifiable(items);
+      emit(CartUpdated(updatedItems));
+      _saveCart(updatedItems);
     }
   }
 
   void clearCart() {
     emit(const CartUpdated([]));
+    _storageService.remove(_kCartStorageKey);
   }
 
   Future<void> checkout() async {

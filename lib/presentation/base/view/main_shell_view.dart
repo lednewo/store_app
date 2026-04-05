@@ -2,6 +2,7 @@ import 'package:base_app/common/utils/login_detect.dart';
 import 'package:base_app/config/inject/app_injector.dart';
 import 'package:base_app/l10n/l10n.dart';
 import 'package:base_app/presentation/dashboard/view/dashboard_tab_content.dart';
+import 'package:base_app/presentation/products/view/cart/view/cart_view.dart';
 import 'package:base_app/presentation/products/view/products_view.dart';
 import 'package:base_app/presentation/profile/view_model/profile_cubit.dart';
 import 'package:base_app/presentation/profile/view_model/profile_state.dart';
@@ -54,8 +55,10 @@ class _MainShellViewState extends State<MainShellView> {
     if (type == LoginType.vendedor) {
       pagesList.add(const DashboardTabContent());
     }
-
     pagesList.add(const ProductsView());
+    if (type == LoginType.cliente) {
+      pagesList.add(const CartView());
+    }
     pagesList.add(const ProfileView());
     return pagesList;
   }
@@ -78,6 +81,12 @@ class _MainShellViewState extends State<MainShellView> {
         icon: const Icon(Icons.store_outlined),
         activeIcon: const Icon(Icons.store),
         label: context.l10n.productsTabLabel,
+      ),
+
+      BottomNavigationBarItem(
+        icon: const Icon(Icons.shopping_cart_outlined),
+        activeIcon: const Icon(Icons.shopping_cart),
+        label: 'Carrinho',
       ),
       BottomNavigationBarItem(
         icon: const Icon(Icons.person_outline),

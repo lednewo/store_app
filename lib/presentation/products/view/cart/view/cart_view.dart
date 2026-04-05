@@ -255,8 +255,13 @@ class _QuantityControl extends StatelessWidget {
       children: [
         _CircleIconButton(
           icon: Icons.remove,
-          onTap: onDecrement,
-          color: colorScheme.outlineVariant,
+          onTap: quantidade > 1 ? onDecrement : null,
+          color: quantidade > 1
+              ? colorScheme.primary
+              : colorScheme.onSurface.withOpacity(0.12),
+          iconColor: quantidade > 1
+              ? colorScheme.onPrimary
+              : colorScheme.onSurface.withOpacity(0.38),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -285,7 +290,7 @@ class _CircleIconButton extends StatelessWidget {
   });
 
   final IconData icon;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final Color color;
   final Color? iconColor;
 
