@@ -145,8 +145,9 @@ class AppInjector {
       case AppFlavor.staging:
         return 'https://staging-api.example.com';
       case AppFlavor.production:
-        // return 'http://127.0.0.1:8080/api'; // local
-        return 'http://192.168.1.9:8080/api'; // pc wendel
+        return 'http://10.0.2.2:8080/api'; // local emulador android
+      // return 'http://127.0.0.1:8080/api'; // local celular
+      //return 'http://192.168.1.9:8080/api'; // pc wendel
     }
   }
 
