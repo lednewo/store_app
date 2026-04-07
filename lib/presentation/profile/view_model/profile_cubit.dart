@@ -24,7 +24,7 @@ class ProfileCubit extends Cubit<ProfileState> {
           emit(const ProfileError('Profile not found.'));
         }
       },
-      error: (e) => emit(ProfileError('Failed to load profile: $e')),
+      error: (e) => emit(ProfileError(e.toString())),
     );
   }
 
@@ -40,7 +40,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   Future<void> updateProfile(ProfileDto dto) async {
     emit(const ProfileLoading());
 
-    final result = await _profileRepository.getLocalProfile(dto);
+    final result = await _profileRepository.updateProfile(dto);
 
     result.when(
       ok: (response) => emit(ProfileUpdateSuccess(response.message)),

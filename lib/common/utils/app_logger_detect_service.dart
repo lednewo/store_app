@@ -22,8 +22,6 @@ class AppLoggerService {
     String tag = 'Error',
   }) async {
     log('❌ $message', name: tag, error: error, stackTrace: stackTrace);
-
-    // await AppCrash.enviarMonitoramento(error: error, stackTrace: stackTrace);
   }
 
   static void logRequest(String method, Uri uri, {dynamic body}) {
@@ -45,7 +43,5 @@ class AppLoggerService {
     log('💥 STATUS: $status', name: 'HttpService');
     log('📨 RESPONSE: ${error.response?.data}', name: 'HttpService');
     log('🧵 ERROR: ${error.message}', name: 'HttpService');
-
-    // await AppCrash.enviarMonitoramento(error: error);
   }
 }

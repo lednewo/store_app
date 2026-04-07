@@ -26,10 +26,12 @@ class ProfileRepositoryImpl implements ProfileRepository {
   Future<Result<ProfileEntity?>> getProfile() async {
     try {
       final result = await _profileDatasource.getProfile();
-      if (result.statusCode != 200) {
+      if (!result.isSuccess || result.data == null) {
         return Result.error(
-          Exception(
-            'Failed to get profile: ${result.statusCode} ${result.data}',
+          Failure(
+            errorMessage: result.message ?? 'Erro ao obter perfil',
+            responseStatus: result.status,
+            statusCode: result.statusCode,
           ),
         );
       }
@@ -40,7 +42,9 @@ class ProfileRepositoryImpl implements ProfileRepository {
       return Result.ok(profile);
     } on Exception catch (e) {
       log('Error in getProfile: $e');
-      return Result.error(Exception('Failed to get profile: $e'));
+      return Result.error(
+        Failure(errorMessage: 'Failed to get profile: $e'),
+      );
     }
   }
 
@@ -53,7 +57,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
   }
 
   @override
-  Future<Result<DefaultReturnEntity>> getLocalProfile(ProfileDto dto) async {
+  Future<Result<DefaultReturnEntity>> updateProfile(ProfileDto dto) async {
     try {
       final result = await _profileDatasource.updateProfile(dto);
       if (!result.isSuccess || result.data == null) {
@@ -72,7 +76,9 @@ class ProfileRepositoryImpl implements ProfileRepository {
       return Result.ok(defaultReturn);
     } on Exception catch (e) {
       log('Error in getLocalProfile: $e');
-      return Result.error(Exception('Failed to update profile: $e'));
+      return Result.error(
+        Failure(errorMessage: 'Failed to update profile: $e'),
+      );
     }
   }
 }

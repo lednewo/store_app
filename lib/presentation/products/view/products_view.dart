@@ -27,25 +27,21 @@ class _ProductsViewState extends State<ProductsView> {
   @override
   void initState() {
     super.initState();
-    unawaited(_productsCubit.fetchLatestProducts());
-    unawaited(_productsCubit.fetchProducts(PaginationDto(page: 0)));
+    _productsCubit.fetchLatestProducts();
+    _productsCubit.fetchProducts(PaginationDto(page: 0));
 
     _searchNameController.addListener(() {
       final name = _searchNameController.text;
       if (name.isEmpty || name.length > 2) {
-        unawaited(
-          _productsCubit.fetchProducts(
-            PaginationDto(page: 0, name: name.isEmpty ? null : name),
-          ),
+        _productsCubit.fetchProducts(
+          PaginationDto(page: 0, name: name.isEmpty ? null : name),
         );
       }
     });
   }
 
   void _goToPage(int page) {
-    unawaited(
-      _productsCubit.fetchProducts(PaginationDto(page: page)),
-    );
+    _productsCubit.fetchProducts(PaginationDto(page: page));
   }
 
   @override

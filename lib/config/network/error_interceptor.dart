@@ -19,13 +19,13 @@ class ErrorInterceptor extends Interceptor {
         mappedError = DioException(
           requestOptions: err.requestOptions,
           type: err.type,
-          message: 'Connection timed out',
+          message: 'Conexão com o servidor expirou. Tente novamente.',
         );
       case DioExceptionType.connectionError:
         mappedError = DioException(
           requestOptions: err.requestOptions,
           type: err.type,
-          message: 'No internet connection',
+          message: 'Sem conexão com a internet',
         );
       case DioExceptionType.badResponse:
         mappedError = _handleBadResponse(err);
@@ -35,14 +35,14 @@ class ErrorInterceptor extends Interceptor {
         mappedError = DioException(
           requestOptions: err.requestOptions,
           type: err.type,
-          message: 'Certificate verification failed',
+          message: 'Falha na verificação do certificado',
         );
       case DioExceptionType.unknown:
         if (err.error is SocketException) {
           mappedError = DioException(
             requestOptions: err.requestOptions,
             type: DioExceptionType.connectionError,
-            message: 'No internet connection',
+            message: 'Sem conexão com a internet',
           );
         } else {
           mappedError = err;
